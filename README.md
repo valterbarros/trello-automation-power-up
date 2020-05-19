@@ -1,37 +1,31 @@
-# Sample Trello Power-Up 🚀
+# Automatizations Trello Power-Up 🚀
 
-Hey there 👋
+# instructions
 
-This is a bare-bones template for building a new Trello Power-Up. What does that mean for you? We hope it's a great starting point for you to remix, and make your own great Power-Up that makes Trello work even better for you. 
+You need to serve that app to use on your trello boards, for that there is a node script server.js on the project root you could run that using:
 
-Once you remix this, you'll want to take a look at what the new name is. Click the `Show Live` button up in the top bar and grab that url and then head here:
+```
+npm run start
+```
 
-👉  [https://trello.com/power-ups/admin](https://trello.com/power-ups/admin)
+That will only work for local tests to use on trello you need to use a host like AWS, digital ocean, heroku, etc.
 
-Select the Trello team you want to add the Power-Up to. Note: You need to be an admin of the Trello team to add custom Power-Ups to it.
+After that you need to access that page to enable custom power up on trello:
 
-Now click the `Create new Power-Up` button. If this is your first time creating a Power-Up, you'll need to agree to a "Joint Developer Agreement" first. After you have done that, you just need to give your cool new Power-Up a name, and paste the url link into the field titled `Iframe connector URL` (the one you copied earlier).
+https://trello.com/power-ups/admin
 
-This Power-Up doesn't make use of any capabilities out of the box, so you'll want to turn on the capabilities you want to use. You'll also need a URL for an icon. You can use the sample one we have here: [https://cdn.glitch.com/2442c68d-7b6d-4b69-9d13-feab530aa88e%2Fglitch-icon.svg?1489773457908](https://cdn.glitch.com/2442c68d-7b6d-4b69-9d13-feab530aa88e%2Fglitch-icon.svg?1489773457908).
+More about that process here https://tech.trello.com/power-up-tutorial-part-one/
 
-Click `Save` and it's time to celebrate 🎉 🎊
+On the code you need to put your github token and your pull requests api link
 
-Now when you look at the Power-Ups for any board in that team, your awesome new Power-Up will be available. You can continue to make changes to the Glitch project and you'll see that reflected in Trello (you may just need to refresh).
+client.js:134
 
----
-
-Want more information about Power-Ups? 🤔
-
-👉  [https://developers.trello.com/power-ups/intro](https://developers.trello.com/power-ups/intro)
-
-We even have office hours you can sign up for if you want to talk to a real live person about your Power-Up. Just grab a slot that works for you on this [calendar](https://calendly.com/bentley-atlassian/30min).
-
----
-
-Looking for a more _realistic_ example Power-Up? You may find the Trello Card Snooze Power-Up useful. 😴
-
-👉  [Trello Card Snooze Glitch Project](https://glitch.com/edit/#!/trellocardsnooze)
-
----
-
-Icons made by [Freepik](http://www.freepik.com) and [Vectors Market](http://www.flaticon.com/authors/vectors-market) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
+```
+const pullRequestsUrl =
+  "<project pull requests url goes here ex: https://api.github.com/repos/:owner/:repo/pulls more about https://developer.github.com/v3/pulls/>";
+const getPullRequests = fetch(pullRequestsUrl, {
+  headers: {
+    Authorization: "token <your github token goes here more about that https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line>"
+  }
+});
+```
