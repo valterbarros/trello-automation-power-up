@@ -4,7 +4,8 @@
   "description": "A Power-Up skeleton to remix to start building your Power-Up!",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint": "eslint public"
   },
   "dependencies": {
     "express": "^4.15.2",
