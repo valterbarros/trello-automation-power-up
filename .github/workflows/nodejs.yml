@@ -6,7 +6,6 @@ name: Node.js CI
 on:
   push:
     paths:
-    - '**.js'
     - '**.vue'
     - '**.txt'
     - '**.html'
