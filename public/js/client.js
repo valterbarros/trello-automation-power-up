@@ -155,7 +155,7 @@ TrelloPowerUp.initialize({
                 const userName = pullRequest.user.login;
                 const prState = pullRequest.state
                 const splittedUrl = pullRequestUrl.split('/');
-                const prNumber = splittedUrl[splittedUrl.length - 1]
+                const prNumber = splittedUrl[splittedUrl.length - 1];
                 const cardTitle = pullRequest.title;
 
                 // t.set("board", "shared", pullRequestUrl, true);
