@@ -6,7 +6,7 @@ You need to serve that app to use on your trello boards, for that there is a nod
 
 ```
 npm run start
-```
+``` 
 
 That will only work for local tests to use on trello you need to use a host like AWS, digital ocean, heroku, etc.
 
