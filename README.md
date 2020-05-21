@@ -1,4 +1,4 @@
-# Trello Automatization Power-Up 🚀
+# Trello Automation Power-Up 🚀
 
 ### Instructions
 
