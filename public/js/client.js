@@ -152,7 +152,7 @@ TrelloPowerUp.initialize({
               console.log(pullRequestsListIdAndName);
               result.forEach(pullRequest => {
                 const pullRequestUrl = pullRequest.html_url;
-                const userName = pullRequest.user.login
+                const userName = pullRequest.user.login;
                 const prState = pullRequest.state
                 const splittedUrl = pullRequestUrl.split('/');
                 const prNumber = splittedUrl[splittedUrl.length - 1]
