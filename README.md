@@ -29,7 +29,7 @@ const getPullRequests = fetch(pullRequestsUrl, {
   }
 });
 ```
-
+ 
 ### The sync pull requests button
 
 ![sync button](https://trello-attachments.s3.amazonaws.com/5d4605087c3bad4b6615b7f0/5d4605087c3bad4b6615b808/5a531e6cb8e44c1165f4ff80c53df611/image.png)
