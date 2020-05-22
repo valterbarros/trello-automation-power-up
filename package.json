@@ -2,7 +2,9 @@
   "name": "automatizations-trello-power-up",
   "version": "0.0.1",
   "description": "A Power-Up skeleton to remix to start building your Power-Up!",
-  "main": "server.js",
+  "source": {
+    "app": "./views/index.html"
+  },
   "scripts": {
     "start": "node server.js",
     "lint": "eslint public"
@@ -24,6 +26,7 @@
     "express"
   ],
   "devDependencies": {
-    "eslint": "^7.0.0"
+    "eslint": "^7.0.0",
+    "parcel": "^2.0.0-alpha.3.2"
   }
 }
