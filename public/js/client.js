@@ -26,11 +26,9 @@ function fromMilisecondsToHoursAndMinutes(time) {
 
 var Promise = TrelloPowerUp.Promise;
 
-var BLACK_ROCKET_ICON =
-  "https://cdn.glitch.com/d4365d9f-3a05-45c9-b54f-84473b6fe27c%2Fpngguru.com.png?v=1589678814619";
-var WHITE_ICON =
-  "https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-white.svg";
-var PR_ICON = 'https://github.trello.services/images/pull-request.svg?color=fff'
+var PR_ICON = 'https://github.trello.services/images/pull-request.svg?color=fff';
+
+var GITHUB_ICON = 'https://github.trello.services/images/icon.svg?color=42536e';
 
 window.Trello.authorize({
   type: "popup",
@@ -44,20 +42,20 @@ window.Trello.authorize({
 
 TrelloPowerUp.initialize({
   //Start adding handlers for your capabilities here!
-  "card-buttons": function(t, options) {
-    return [
-      {
-        icon: BLACK_ROCKET_ICON,
-        text: "Estimate Size",
-        callback: function(t) {
-          return t.popup({
-            title: "Estimation",
-            url: "estimate.html"
-          });
-        }
-      }
-    ];
-  },
+  // "card-buttons": function(t, options) {
+  //   return [
+  //     {
+  //       icon: GITHUB_ICON,
+  //       text: "GitHub",
+  //       callback: function(t) {
+  //         return t.popup({
+  //           title: "GitHub Selection",
+  //           url: "github_info_popup.html"
+  //         });
+  //       }
+  //     }
+  //   ];
+  // },
   "card-badges2": function(
     t,
     options /* Returns some data from current card like id, etc*/
@@ -172,6 +170,16 @@ TrelloPowerUp.initialize({
                 });
               });
             });
+        }
+      },
+      {
+        icon: GITHUB_ICON,
+        text: "Configure your github account",
+        callback: function(t) {
+          return t.popup({
+            title: "GitHub Selection",
+            url: "github_info_popup.html"
+          });
         }
       }
     ];

@@ -13,16 +13,24 @@
     <script src="https://trello.com/1/client.js?key=4a4f3be9aaba4f56cfa5e357258f1c2e"></script>
   </head>
   <body>
-    <form id="estimate">
-      <label for="estimateSize">Estimate:</label>
-      <select name="size" id="estimateSize">
-        <option value="small">Small 👕</option>
-        <option value="medium">Medium 👚</option>
-        <option value="large">Large 👔</option>
-        <option value="x-large">Extra Large 👖</option>
-      </select>
+    <form id="jsghselection">
+      <label for="gh_token">GitHub Token:</label>
+      <input required type="text" id="js_gh_token">
+      <span
+        href="https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line"
+        target="_blank"
+      >
+        more info
+      </span>
+
+      <label for="gh_owner">Owner:</label>
+      <input required type="text" id="js_gh_owner">
+
+      <label for="gh_repository">Repository:</label>
+      <input required type="text" id="js_gh_repository">
+
       <button type="submit" class="mod-primary">Save</button>
     </form>
-    <script src="./js/estimate.js"></script>
+    <script src="./js/github_info_popup.js"></script>
   </body>
 </html>
