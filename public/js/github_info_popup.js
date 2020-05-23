@@ -19,8 +19,6 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
 
 // Like a popup constructor as soon as the pop up rendes on the screen it will be called
 t.render(() => {
-  t.sizeTo('#jsghselection').done()
-
   const ghToken = document.querySelector('#js_gh_token')
   const ghOwner = document.querySelector('#js_gh_owner')
   const ghRepository = document.querySelector('#js_gh_repository')
@@ -30,5 +28,7 @@ t.render(() => {
     ghToken.value = personalGithubData.ghToken
     ghOwner.value = personalGithubData.ghOwner.name
     ghRepository.value = personalGithubData.ghOwner.repository
+  }).then(() => {
+    t.sizeTo('#jsghselection').done()
   })
 })
