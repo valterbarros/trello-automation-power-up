@@ -40,6 +40,8 @@ window.Trello.authorize({
   expiration: "never"
 });
 
+var trelloIframe = TrelloPowerUp.iframe()
+
 TrelloPowerUp.initialize({
   //Start adding handlers for your capabilities here!
   // "card-buttons": function(t, options) {
@@ -119,6 +121,9 @@ TrelloPowerUp.initialize({
       });
   },
   "board-buttons": function(t, opts) {
+    t.get('board', 'shared', 'github_user_info').then(() => {
+
+    })
     return [
       {
         // we can either provide a button that has a callback function
@@ -129,6 +134,7 @@ TrelloPowerUp.initialize({
         text: "Sync Pull Requests",
         condition: "edit",
         callback: function(t, opts) {
+          console.log(t)
           const pullRequestsUrl =
             "<project pull requests url goes here ex: https://api.github.com/repos/:owner/:repo/pulls more about https://developer.github.com/v3/pulls/>";
           const getPullRequests = fetch(pullRequestsUrl, {
