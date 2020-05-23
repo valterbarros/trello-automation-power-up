@@ -190,7 +190,9 @@ TrelloPowerUp.initialize({
                   idList: pullRequestsListIdAndName.id,
                   pos: "top"
                 }).then(card => {
-                  t.set('card', 'shared', 'prUrl', `${pullRequestUrl}/${prNumber}`).then()
+                  t.set('card', 'shared', 'prUrl', `${pullRequestUrl}/${prNumber}`).then(() => {
+                    console.log('hellow')
+                  })
 
                   window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request",
