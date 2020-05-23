@@ -35,7 +35,9 @@ t.render(() => {
       headers: {
         Authorization: `token ${githubToken}`
       }
-    }).then((repos) => {
+    })
+    .then((reposResponse) => reposResponse.json())
+    .then((repos) => {
       repos.forEach((repo) => {
         const option = document.createElement('option');
         option.text = repo.full_name
