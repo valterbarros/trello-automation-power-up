@@ -2,7 +2,7 @@
   <head>
     <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
     <style>
-      select { height: 30px; }
+      select { width: 100%; }
     </style>
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -23,28 +23,24 @@
         Generate your token
       </a>
 
-      <!-- <label for="gh_owner">Owner:</label>
-      <input required type="text" id="js_gh_owner"> -->
-
       <label for="gh_repository">Repository:</label>
-      <!-- <input required type="text" id="js_gh_repository"> -->
       <select id="js_gh_repository"></select>
 
       <p>Select what resource you want:</p>
 
-      <div>
+      <div style="margin-left: 1px;">
         <input type="radio" id="pull_request" name="drone" value="huey" checked>
-        <label for="pull_request">Pull Requests</label>
+        <label style="display: inline-block;" for="pull_request">Pull Requests</label>
       </div>
 
-      <div>
+      <div style="margin-left: 1px;">
         <input type="radio" id="branch" name="drone" value="dewey" disabled>
-        <label for="branch">Branchs</label>
+        <label style="display: inline-block;" for="branch">Branchs</label>
       </div>
 
-      <div>
+      <div style="margin-left: 1px;">
         <input type="radio" id="commit" name="drone" value="louie" disabled>
-        <label for="commit">Commits</label>
+        <label style="display: inline-block;" for="commit">Commits</label>
       </div>
 
       <button type="submit" class="mod-primary">Save</button>
