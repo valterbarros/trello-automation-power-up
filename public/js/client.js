@@ -121,9 +121,6 @@ TrelloPowerUp.initialize({
       });
   },
   "board-buttons": function(t, opts) {
-    t.get('board', 'shared', 'github_user_info').then(() => {
-
-    })
     return [
       {
         // we can either provide a button that has a callback function
@@ -133,13 +130,19 @@ TrelloPowerUp.initialize({
         },
         text: "Sync Pull Requests",
         condition: "edit",
-        callback: function(t, opts) {
+        callback: async function(t, opts) {
+          // await t.remove('board', 'shared', 'github_user_info')
+          // const githubUserInfo = await t.get('board', 'shared', 'github_user_info')
+          // const githubToken = githubUserInfo.ghToken
+          // const onwerName = githubUserInfo.ghOwner.name
+          // const repoName = githubUserInfo.ghOwner.repository
+
+          // console.log(githubUserInfo, githubToken, onwerName, repoName);
           console.log(t)
-          const pullRequestsUrl =
-            "<project pull requests url goes here ex: https://api.github.com/repos/:owner/:repo/pulls more about https://developer.github.com/v3/pulls/>";
+          const pullRequestsUrl = `https://api.github.com/repos/${onwerName}/${repoName}/pulls`
           const getPullRequests = fetch(pullRequestsUrl, {
             headers: {
-              Authorization: "token <your github token goes here more about that https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line>"
+              Authorization: `token ${githubToken}`
             }
           });
 
