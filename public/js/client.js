@@ -132,10 +132,10 @@ TrelloPowerUp.initialize({
         condition: "edit",
         callback: async function(t, opts) {
           // await t.remove('board', 'shared', 'github_user_info')
-          const githubUserInfo = await t.get('board', 'shared', 'github_user_info')
-          const githubToken = githubUserInfo.ghToken
-          const onwerName = githubUserInfo.ghOwner.name
-          const repoName = githubUserInfo.ghOwner.repository
+          // const githubUserInfo = await t.get('board', 'shared', 'github_user_info')
+          // const githubToken = githubUserInfo.ghToken
+          // const onwerName = githubUserInfo.ghOwner.name
+          // const repoName = githubUserInfo.ghOwner.repository
 
           // console.log(githubUserInfo, githubToken, onwerName, repoName);
           console.log(t)
