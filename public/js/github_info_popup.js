@@ -9,15 +9,11 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   event.preventDefault()
 
   const ghToken = document.querySelector('#js_gh_token').value
-  const ghOwner = document.querySelector('#js_gh_owner').value
-  const ghRepository = document.querySelector('#js_gh_repository').value
+  const pullRequestUrl = document.querySelector('#js_gh_repository')
 
   return t.set('board', 'shared', 'github_user_info', {
     ghToken,
-    ghOwner: {
-      name: ghOwner,
-      repository: ghRepository
-    }
+    pullRequestUrl: pullRequestUrl.value
   })
   .then(() => {
     t.closePopup()
@@ -41,7 +37,7 @@ t.render(() => {
       repos.forEach((repo) => {
         const option = document.createElement('option');
         option.text = repo.full_name
-        option.value = repo.pulls_url
+        option.value = repo.pulls_url.replace(/\{\/number\}/gu, '')
 
         const repoSelect = document.querySelector('#js_gh_repository')
         repoSelect.add(option)
@@ -53,14 +49,12 @@ t.render(() => {
   })
 
   const ghToken = document.querySelector('#js_gh_token')
-  // const ghOwner = document.querySelector('#js_gh_owner')
-  const ghRepository = document.querySelector('#js_gh_repository')
+  const pullRequestUrl = document.querySelector('#js_gh_repository')
 
   t.get('board', 'shared', 'github_user_info').then((personalGithubData) => {
     console.log(personalGithubData)
     ghToken.value = personalGithubData.ghToken
-    // ghOwner.value = personalGithubData.ghOwner.name
-    ghRepository.value = personalGithubData.ghOwner.repository
+    pullRequestUrl.value = personalGithubData.pullRequestUrl
   })
   .then(() => {
     t.sizeTo('#jsghselection').done()

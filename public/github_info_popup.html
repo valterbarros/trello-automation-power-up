@@ -28,9 +28,24 @@
 
       <label for="gh_repository">Repository:</label>
       <!-- <input required type="text" id="js_gh_repository"> -->
-      <select id="js_gh_repository">
+      <select id="js_gh_repository"></select>
 
-      </select>
+      <p>Select what resource you want:</p>
+
+      <div>
+        <input type="radio" id="pull_request" name="drone" value="huey" checked>
+        <label for="pull_request">Pull Requests</label>
+      </div>
+
+      <div>
+        <input type="radio" id="branch" name="drone" value="dewey" disabled>
+        <label for="branch">Branchs</label>
+      </div>
+
+      <div>
+        <input type="radio" id="commit" name="drone" value="louie" disabled>
+        <label for="commit">Commits</label>
+      </div>
 
       <button type="submit" class="mod-primary">Save</button>
     </form>
