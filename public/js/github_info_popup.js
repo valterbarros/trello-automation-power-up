@@ -28,7 +28,8 @@ t.render(() => {
     ghToken.value = personalGithubData.ghToken
     ghOwner.value = personalGithubData.ghOwner.name
     ghRepository.value = personalGithubData.ghOwner.repository
-  }).then(() => {
+  })
+  .then(() => {
     t.sizeTo('#jsghselection').done()
   })
 })
