@@ -126,11 +126,8 @@ TrelloPowerUp.initialize({
     return [
       {
         dynamic: function() {
-          t.card('id')
-          .then((card) => {
-            t.get('card', 'shared', card.id).then((prLink) => {
-              console.log(prLink)
-            })
+          t.get('card', 'shared', 'prUrl').then((prLink) => {
+            console.log(prLink)
           })
           return {
             refresh: 10
@@ -193,7 +190,7 @@ TrelloPowerUp.initialize({
                   idList: pullRequestsListIdAndName.id,
                   pos: "top"
                 }).then(card => {
-                  t.set('card', 'shared', card.id, `${pullRequestUrl}/${prNumber}`).then()
+                  t.set('card', 'shared', 'prUrl', `${pullRequestUrl}/${prNumber}`).then()
 
                   window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request",
