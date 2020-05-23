@@ -178,7 +178,7 @@ TrelloPowerUp.initialize({
         callback: function(t) {
           return t.popup({
             title: "GitHub Selection",
-            url: "../github_info_popup.html"
+            url: "/public/github_info_popup.html"
           });
         }
       }
