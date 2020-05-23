@@ -131,10 +131,12 @@ TrelloPowerUp.initialize({
         condition: "edit",
         callback: function(t, opts) {
           // await t.remove('board', 'shared', 'github_user_info')
+          let listBoardName = ''
 
           const getPullRequests = t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
             const githubToken = githubUserInfo.ghToken
             const pullRequestUrl = githubUserInfo.pullRequestUrl
+            listBoardName = githubUserInfo.listBoardName
 
             return fetch(pullRequestUrl, {
               headers: {
@@ -148,7 +150,7 @@ TrelloPowerUp.initialize({
               return Promise.all([
                 result.json(),
                 pullRequestsListIdAndName.find(
-                  list => list.name.toLowerCase() === "todo"
+                  list => list.name.toLowerCase() === listBoardName
                 )
               ]);
             })
