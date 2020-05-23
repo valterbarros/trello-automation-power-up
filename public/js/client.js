@@ -173,11 +173,12 @@ TrelloPowerUp.initialize({
                 const splittedUrl = pullRequestUrl.split('/');
                 const prNumber = splittedUrl[splittedUrl.length - 1];
                 const cardTitle = pullRequest.title;
+                const repoName = pullRequest.base.repo.name
 
                 // t.set("board", "shared", pullRequestUrl, true);
 
                 window.Trello.post("/card", {
-                  name: `${cardTitle} [${userName}] #${prNumber} [${prState}]`,
+                  name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
                   idList: pullRequestsListIdAndName.id,
                   pos: "top"
                 }).then(card => {
