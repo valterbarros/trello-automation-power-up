@@ -43,6 +43,9 @@ t.render(() => {
         repoSelect.add(option)
       })
     })
+    .then(() => {
+      document.querySelector('#js_gh_repository').value = githubUserInfo.pullRequestUrl
+    })
   })
   .then((result) => {
     console.log(result);
