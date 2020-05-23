@@ -193,6 +193,9 @@ TrelloPowerUp.initialize({
                   t.set('card', 'shared', 'prUrl', `${pullRequestUrl}/${prNumber}`).then(() => {
                     console.log('hellow')
                   })
+                  .catch((err) => {
+                    console.log(err);
+                  })
 
                   window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request",
