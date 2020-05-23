@@ -1,3 +1,4 @@
+/* global TrelloPowerUp */
 import trelloAuth from './auth'
 
 trelloAuth()
@@ -11,14 +12,40 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   const ghOwner = document.querySelector('#js_gh_owner').value
   const ghRepository = document.querySelector('#js_gh_repository').value
 
-  return t.set('board', 'shared', 'github_user_info', { ghToken, ghOwner: { name: ghOwner, repository: ghRepository } })
-  .then(function(){
+  return t.set('board', 'shared', 'github_user_info', {
+    ghToken,
+    ghOwner: {
+      name: ghOwner,
+      repository: ghRepository
+    }
+  })
+  .then(() => {
     t.closePopup()
   })
 })
 
 // Like a popup constructor as soon as the pop up rendes on the screen it will be called
 t.render(() => {
+  const getRepos = t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
+    const githubToken = githubUserInfo.ghToken
+
+    const reposUrl = `https://api.github.com/user/repos?sort=pushed&per_page=20`
+
+    return fetch(reposUrl, {
+      headers: {
+        Authorization: `token ${githubToken}`
+      }
+    }).then((repos) => {
+      repos.forEach((repo) => {
+        const option = document.createElement('option');
+        option.text = repo.full_name
+
+        const repoSelect = document.querySelector('#js_gh_repository')
+        repoSelect.add(option)
+      })
+    })
+  })
+
   const ghToken = document.querySelector('#js_gh_token')
   const ghOwner = document.querySelector('#js_gh_owner')
   const ghRepository = document.querySelector('#js_gh_repository')

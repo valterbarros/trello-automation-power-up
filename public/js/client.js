@@ -30,6 +30,7 @@ var PR_ICON = 'https://github.trello.services/images/pull-request.svg?color=fff'
 
 var GITHUB_ICON = 'https://github.trello.services/images/icon.svg?color=42536e';
 
+/* TODO use import */
 window.Trello.authorize({
   type: "popup",
   name: "Automatizations Trello Power-Up",
@@ -130,17 +131,8 @@ TrelloPowerUp.initialize({
         condition: "edit",
         callback: function(t, opts) {
           // await t.remove('board', 'shared', 'github_user_info')
-          // const githubUserInfo = await t.get('board', 'shared', 'github_user_info')
-          // const githubToken = githubUserInfo.ghToken
-          // const onwerName = githubUserInfo.ghOwner.name
-          // const repoName = githubUserInfo.ghOwner.repository
-
-          // console.log(githubUserInfo, githubToken, onwerName, repoName);
-          console.log(t)
 
           const getPullRequests = t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
-            console.log(githubUserInfo);
-            
             const githubToken = githubUserInfo.ghToken
             const onwerName = githubUserInfo.ghOwner.name
             const repoName = githubUserInfo.ghOwner.repository
