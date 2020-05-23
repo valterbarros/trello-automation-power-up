@@ -129,7 +129,7 @@ TrelloPowerUp.initialize({
           t.card('id')
           .then((card) => {
             t.get('card', 'shared', card.id).then((prLink) => {
-              console.log(prLink)
+              console.log(card)
             })
           })
           return {
