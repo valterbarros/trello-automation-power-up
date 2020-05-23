@@ -134,12 +134,9 @@ TrelloPowerUp.initialize({
 
           const getPullRequests = t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
             const githubToken = githubUserInfo.ghToken
-            const onwerName = githubUserInfo.ghOwner.name
-            const repoName = githubUserInfo.ghOwner.repository
+            const pullRequestUrl = githubUserInfo.pullRequestUrl
 
-            const pullRequestsUrl = `https://api.github.com/repos/${onwerName}/${repoName}/pulls`
-
-            return fetch(pullRequestsUrl, {
+            return fetch(pullRequestUrl, {
               headers: {
                 Authorization: `token ${githubToken}`
               }
