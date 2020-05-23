@@ -139,10 +139,10 @@ TrelloPowerUp.initialize({
 
           // console.log(githubUserInfo, githubToken, onwerName, repoName);
           console.log(t)
-          const pullRequestsUrl = `https://api.github.com/repos/${onwerName}/${repoName}/pulls`
+          const pullRequestsUrl = `https://api.github.com/repos/${'onwerName'}/${'repoName'}/pulls`
           const getPullRequests = fetch(pullRequestsUrl, {
             headers: {
-              Authorization: `token ${githubToken}`
+              Authorization: `token ${'githubToken'}`
             }
           });
 
