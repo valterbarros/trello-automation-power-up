@@ -130,7 +130,7 @@ TrelloPowerUp.initialize({
             console.log(prLink)
           })
           return {
-            refresh: 10
+            refresh: 99999999999999999
           }
         }
       }
@@ -190,6 +190,9 @@ TrelloPowerUp.initialize({
                   idList: pullRequestsListIdAndName.id,
                   pos: "top"
                 }).then(card => {
+                  t.card(card.id).then((c) => {
+                    console.log(c)
+                  })
                   t.set('card', 'shared', 'prUrl', `${pullRequestUrl}/${prNumber}`).then(() => {
                     console.log('hellow')
                   })
