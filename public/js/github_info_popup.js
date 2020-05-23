@@ -7,9 +7,9 @@ var t = TrelloPowerUp.iframe()
 document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   event.preventDefault()
 
-  const ghToken = document.querySelector('#js_gh_token')
-  const ghOwner = document.querySelector('#js_gh_owner')
-  const ghRepository = document.querySelector('#js_gh_repository')
+  const ghToken = document.querySelector('#js_gh_token').value
+  const ghOwner = document.querySelector('#js_gh_owner').value
+  const ghRepository = document.querySelector('#js_gh_repository').value
 
   return t.set('board', 'shared', 'github_user_info', { ghToken, ghOwner: { name: ghOwner, repository: ghRepository } })
   .then(function(){
