@@ -137,12 +137,22 @@ TrelloPowerUp.initialize({
 
           // console.log(githubUserInfo, githubToken, onwerName, repoName);
           console.log(t)
-          const pullRequestsUrl = `https://api.github.com/repos/${'onwerName'}/${'repoName'}/pulls`
-          const getPullRequests = fetch(pullRequestsUrl, {
-            headers: {
-              Authorization: `token ${'githubToken'}`
-            }
-          });
+
+          const getPullRequests = t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
+            console.log(githubUserInfo);
+            
+            const githubToken = githubUserInfo.ghToken
+            const onwerName = githubUserInfo.ghOwner.name
+            const repoName = githubUserInfo.ghOwner.repository
+
+            const pullRequestsUrl = `https://api.github.com/repos/${onwerName}/${repoName}/pulls`
+
+            return fetch(pullRequestsUrl, {
+              headers: {
+                Authorization: `token ${githubToken}`
+              }
+            });
+          })
 
           return Promise.all([getPullRequests, t.lists("id", "name")])
             .then(([result, pullRequestsListIdAndName]) => {
