@@ -26,6 +26,7 @@ t.render(() => {
   const ghRepository = document.querySelector('#js_gh_repository')
 
   t.get('board', 'shared', 'github_user_info').then((personalGithubData) => {
+    console.log(personalGithubData)
     ghToken.value = personalGithubData.ghToken
     ghOwner.value = personalGithubData.ghOwner.name
     ghRepository.value = personalGithubData.ghOwner.repository
