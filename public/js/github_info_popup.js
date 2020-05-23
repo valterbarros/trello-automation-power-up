@@ -45,6 +45,9 @@ t.render(() => {
       })
     })
   })
+  .then((result) => {
+    console.log(result);
+  })
 
   const ghToken = document.querySelector('#js_gh_token')
   const ghOwner = document.querySelector('#js_gh_owner')
