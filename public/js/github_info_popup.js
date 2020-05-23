@@ -26,7 +26,7 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
 
 // Like a popup constructor as soon as the pop up rendes on the screen it will be called
 t.render(() => {
-  const getRepos = t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
+  t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
     const githubToken = githubUserInfo.ghToken
 
     const reposUrl = `https://api.github.com/user/repos?sort=pushed&per_page=20`
@@ -41,6 +41,7 @@ t.render(() => {
       repos.forEach((repo) => {
         const option = document.createElement('option');
         option.text = repo.full_name
+        option.value = repo.pulls_url
 
         const repoSelect = document.querySelector('#js_gh_repository')
         repoSelect.add(option)
@@ -52,13 +53,13 @@ t.render(() => {
   })
 
   const ghToken = document.querySelector('#js_gh_token')
-  const ghOwner = document.querySelector('#js_gh_owner')
+  // const ghOwner = document.querySelector('#js_gh_owner')
   const ghRepository = document.querySelector('#js_gh_repository')
 
   t.get('board', 'shared', 'github_user_info').then((personalGithubData) => {
     console.log(personalGithubData)
     ghToken.value = personalGithubData.ghToken
-    ghOwner.value = personalGithubData.ghOwner.name
+    // ghOwner.value = personalGithubData.ghOwner.name
     ghRepository.value = personalGithubData.ghOwner.repository
   })
   .then(() => {
