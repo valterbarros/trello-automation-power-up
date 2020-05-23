@@ -165,6 +165,7 @@ TrelloPowerUp.initialize({
             })
             .then(([result, pullRequestsListIdAndName]) => {
               console.log(pullRequestsListIdAndName);
+              console.log(result);
               result.forEach(pullRequest => {
                 const pullRequestUrl = pullRequest.html_url;
                 const userName = pullRequest.user.login;
@@ -186,7 +187,11 @@ TrelloPowerUp.initialize({
                   });
                 });
               });
-            });
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+          // End
         }
       },
       {
