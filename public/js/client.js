@@ -119,6 +119,26 @@ TrelloPowerUp.initialize({
   //       console.log(err);
   //     });
   // },
+  "card-badges": function(
+    t,
+    options /* Returns some data from current card like id, etc*/
+  ) {
+    return [
+      {
+        dynamic: function() {
+          t.card('id')
+          .then((card) => {
+            t.get('card', 'shared', card.id).then((prLink) => {
+              console.log(prLink)
+            })
+          })
+          return {
+            refresh: 10
+          }
+        }
+      }
+    ]
+  },
   "board-buttons": function(t, opts) {
     return [
       {
@@ -173,6 +193,8 @@ TrelloPowerUp.initialize({
                   idList: pullRequestsListIdAndName.id,
                   pos: "top"
                 }).then(card => {
+                  t.set('card', 'shared', card.id, `${pullRequestUrl}/${prNumber}`).then()
+
                   window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request",
                     url: pullRequestUrl
