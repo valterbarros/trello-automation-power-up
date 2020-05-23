@@ -58,68 +58,68 @@ TrelloPowerUp.initialize({
   //     }
   //   ];
   // },
-  "card-badges2": function(
-    t,
-    options /* Returns some data from current card like id, etc*/
-  ) {
-    // console.log(t)
-    // console.log(options)
-    // let cardName = await t.card('id').get('id')
-    // console.log(cardName)
-    return t
-      .card("dateLastActivity")
-      .get("dateLastActivity")
-      .then(lastActivity => {
-        return lastActivity;
-      })
-      .then(lastActivity => {
-        const getId = t.card("id").get("id");
+  // "card-badges2": function(
+  //   t,
+  //   options /* Returns some data from current card like id, etc*/
+  // ) {
+  //   // console.log(t)
+  //   // console.log(options)
+  //   // let cardName = await t.card('id').get('id')
+  //   // console.log(cardName)
+  //   return t
+  //     .card("dateLastActivity")
+  //     .get("dateLastActivity")
+  //     .then(lastActivity => {
+  //       return lastActivity;
+  //     })
+  //     .then(lastActivity => {
+  //       const getId = t.card("id").get("id");
 
-        return Promise.all([getId, lastActivity]);
-      })
-      .then(([cardId, lastActivity]) => {
-        const getActions = window.Trello.get(`/cards/${cardId}/actions`);
-        return Promise.all([getActions, lastActivity]);
-      })
-      .then(([actions, lastActivity]) => {
-        // console.log(actions.find((action) => action.type === 'updateCard' || action.type === 'createCard'))
-        const createOrUpdateCard = actions.find(action => {
-          return action.type === "updateCard" || action.type === "createCard";
-        });
+  //       return Promise.all([getId, lastActivity]);
+  //     })
+  //     .then(([cardId, lastActivity]) => {
+  //       const getActions = window.Trello.get(`/cards/${cardId}/actions`);
+  //       return Promise.all([getActions, lastActivity]);
+  //     })
+  //     .then(([actions, lastActivity]) => {
+  //       // console.log(actions.find((action) => action.type === 'updateCard' || action.type === 'createCard'))
+  //       const createOrUpdateCard = actions.find(action => {
+  //         return action.type === "updateCard" || action.type === "createCard";
+  //       });
 
-        // actions.forEach((action) => {
-        //   console.log(action.data.card.name)
-        //   if(action.data.card.name === 'asds') {
-        //     console.log(action)
-        //   }
-        // })
-        // console.log(actions)
+  //       // actions.forEach((action) => {
+  //       //   console.log(action.data.card.name)
+  //       //   if(action.data.card.name === 'asds') {
+  //       //     console.log(action)
+  //       //   }
+  //       // })
+  //       // console.log(actions)
 
-        if (createOrUpdateCard) {
-          // console.log(createOrUpdateCard)
-          return createOrUpdateCard.date;
-        } else {
-          return lastActivity;
-        }
-      })
-      .then(lastMoveListDate => {
-        // console.log(lastMoveListDate)
-        return fromMilisecondsToHoursAndMinutes(
-          Math.abs(new Date(lastMoveListDate) - new Date())
-        );
-      })
-      .then(hours => {
-        return [
-          {
-            icon: BLACK_ROCKET_ICON,
-            text: `${hours}`
-          }
-        ];
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
+  //       if (createOrUpdateCard) {
+  //         // console.log(createOrUpdateCard)
+  //         return createOrUpdateCard.date;
+  //       } else {
+  //         return lastActivity;
+  //       }
+  //     })
+  //     .then(lastMoveListDate => {
+  //       // console.log(lastMoveListDate)
+  //       return fromMilisecondsToHoursAndMinutes(
+  //         Math.abs(new Date(lastMoveListDate) - new Date())
+  //       );
+  //     })
+  //     .then(hours => {
+  //       return [
+  //         {
+  //           icon: BLACK_ROCKET_ICON,
+  //           text: `${hours}`
+  //         }
+  //       ];
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // },
   "board-buttons": function(t, opts) {
     return [
       {
