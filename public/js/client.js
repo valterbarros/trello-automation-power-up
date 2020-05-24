@@ -126,7 +126,7 @@ TrelloPowerUp.initialize({
     t.card('id').then((card) => {
       console.log(card);
 
-      window.Trello.get(`/1/cards/${card.id}/attachments`).then((attachments) => {
+      window.Trello.get(`/cards/${card.id}/attachments`).then((attachments) => {
         console.log(attachments);
       })
     })
