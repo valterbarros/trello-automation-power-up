@@ -39,7 +39,13 @@ t.render(() => {
   t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
     const githubToken = githubUserInfo.ghToken
 
-    console.log(t.lists('title'))
+    t.lists('title')
+    .then((e) => {
+      console.log(e);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 
     const reposUrl = `https://api.github.com/user/repos?sort=pushed&per_page=20`
 
