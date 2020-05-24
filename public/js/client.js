@@ -129,7 +129,7 @@ TrelloPowerUp.initialize({
     .then((attachments) => {
       const apiAttachment = attachments.find((attachment) => attachment.url.match(/api.github.com/u))
       if (!apiAttachment) {
-        return []
+        return Promise.reject(new Error("this card doesn't have api attachment"))
       }
 
       return Promise.all([t.get('board', 'shared', 'github_user_info'), apiAttachment])
@@ -140,26 +140,47 @@ TrelloPowerUp.initialize({
       console.log(githubToken);
       console.log(apiAttachment);
 
-      return fetch(apiAttachment.url, {
-        headers: {
-          Authorization: `token ${githubToken}`
-        }
-      })
-    })
-    .then((result) => result.json())
-    .then((pullRequest) => {
-      console.log(pullRequest);
-
       return [
         {
-          text: pullRequest.state,
-          icon: PR_ICON,
-          color: pullRequest.state === 'open'
-          ? 'green'
-          : 'purple'
+          dynamic: function() {
+            return fetch(apiAttachment.url, {
+              headers: {
+                Authorization: `token ${githubToken}`
+              }
+            })
+            .then((result) => result.json())
+            .then((pullRequest) => {
+              console.log(pullRequest);
+
+              return [
+                {
+                  text: pullRequest.state,
+                  icon: PR_ICON,
+                  color: pullRequest.state === 'open'
+                  ? 'green'
+                  : 'purple',
+                  refresh: 10
+                }
+              ]
+            })
+          }
         }
       ]
     })
+    // .then((result) => result.json())
+    // .then((pullRequest) => {
+    //   console.log(pullRequest);
+
+    //   return [
+    //     {
+    //       text: pullRequest.state,
+    //       icon: PR_ICON,
+    //       color: pullRequest.state === 'open'
+    //       ? 'green'
+    //       : 'purple'
+    //     }
+    //   ]
+    // })
     .catch((err) => {
       console.log(err);
     })
