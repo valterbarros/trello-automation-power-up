@@ -123,7 +123,7 @@ TrelloPowerUp.initialize({
     t,
     options /* Returns some data from current card like id, etc*/
   ) {
-    t.card('id').then((card) => {
+    return t.card('id').then((card) => {
       window.Trello.get(`/cards/${card.id}/attachments`).then((attachments) => {
         const apiAttachments = attachments.filter((attachment) => attachment.url.match(/api.github.com/u))
 
