@@ -181,12 +181,12 @@ TrelloPowerUp.initialize({
         condition: "edit",
         callback: function(t, opts) {
           // await t.remove('board', 'shared', 'github_user_info')
-          let listBoardName = ''
+          let listBoardId = ''
 
-          const getPullRequests = t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
+          t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
             const githubToken = githubUserInfo.ghToken
             const pullRequestUrl = githubUserInfo.pullRequestUrl
-            listBoardName = githubUserInfo.listBoardName
+            listBoardId = githubUserInfo.listBoardId
 
             return fetch(pullRequestUrl, {
               headers: {
@@ -194,51 +194,43 @@ TrelloPowerUp.initialize({
               }
             });
           })
+          .then((result) => {
+            return result.json()
+          })
+          .then((result) => {
+            console.log(result);
+            result.forEach(pullRequest => {
+              const pullRequestUrl = pullRequest.html_url;
+              const pullRequestApiUrl = pullRequest.url;
+              const userName = pullRequest.user.login;
+              const prState = pullRequest.state
+              const splittedUrl = pullRequestUrl.split('/');
+              const prNumber = splittedUrl[splittedUrl.length - 1];
+              const cardTitle = pullRequest.title;
+              const repoName = pullRequest.base.repo.name
 
-          return Promise.all([getPullRequests, t.lists("id", "name")])
-            .then(([result, pullRequestsListIdAndName]) => {
-              return Promise.all([
-                result.json(),
-                pullRequestsListIdAndName.find(
-                  list => list.name.toLowerCase() === listBoardName
-                )
-              ]);
-            })
-            .then(([result, pullRequestsListIdAndName]) => {
-              console.log(pullRequestsListIdAndName);
-              console.log(result);
-              result.forEach(pullRequest => {
-                const pullRequestUrl = pullRequest.html_url;
-                const pullRequestApiUrl = pullRequest.url;
-                const userName = pullRequest.user.login;
-                const prState = pullRequest.state
-                const splittedUrl = pullRequestUrl.split('/');
-                const prNumber = splittedUrl[splittedUrl.length - 1];
-                const cardTitle = pullRequest.title;
-                const repoName = pullRequest.base.repo.name
+              // t.set("board", "shared", pullRequestUrl, true);
 
-                // t.set("board", "shared", pullRequestUrl, true);
+              window.Trello.post("/card", {
+                name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
+                idList: listBoardId,
+                pos: "top"
+              }).then(card => {
+                window.Trello.post(`/card/${card.id}/attachments`, {
+                  name: "github pull request",
+                  url: pullRequestUrl
+                });
 
-                window.Trello.post("/card", {
-                  name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
-                  idList: pullRequestsListIdAndName.id,
-                  pos: "top"
-                }).then(card => {
-                  window.Trello.post(`/card/${card.id}/attachments`, {
-                    name: "github pull request",
-                    url: pullRequestUrl
-                  });
-
-                  window.Trello.post(`/card/${card.id}/attachments`, {
-                    name: "github pull request api",
-                    url: pullRequestApiUrl
-                  });
+                window.Trello.post(`/card/${card.id}/attachments`, {
+                  name: "github pull request api",
+                  url: pullRequestApiUrl
                 });
               });
-            })
-            .catch((err) => {
-              console.log(err);
-            })
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          })
           // End
         }
       },

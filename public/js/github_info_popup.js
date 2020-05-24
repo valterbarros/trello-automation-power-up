@@ -22,12 +22,12 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
 
   const ghToken = document.querySelector('#js_gh_token').value
   const pullRequestUrl = document.querySelector('#js_gh_repository')
-  const listBoardName = document.querySelector('#js_gh_board_list')
+  const listBoardId = document.querySelector('#js_gh_board_list')
 
   return t.set('board', 'shared', 'github_user_info', {
     ghToken,
     pullRequestUrl: pullRequestUrl.value,
-    listBoardName: listBoardName.value
+    listBoardId: listBoardId.value
   })
   .then(() => {
     t.closePopup()
@@ -41,13 +41,15 @@ t.render(() => {
 
     t.board('id').then((board) => {
       window.Trello.get(`/boards/${board.id}/lists`)
-      .then((e) => {
-        console.log(e);
+      .then((lists) => {
+        mountSelectOptions(lists, '#js_gh_board_list', 'name', 'id')
       })
       .catch((err) => {
         console.log(err);
       })
-      console.log(board);
+    })
+    .then(() => {
+      document.querySelector('#js_gh_board_list').value = githubUserInfo.listBoardId
     })
     .catch((err) => {
       console.log(err);
@@ -78,7 +80,6 @@ t.render(() => {
       })
 
       console.log(mapRepo);
-      
 
       mountSelectOptions(mapRepo, '#js_gh_repository', 'fullName', 'pullUrl')
     })
@@ -92,13 +93,13 @@ t.render(() => {
 
   const ghToken = document.querySelector('#js_gh_token')
   const pullRequestUrl = document.querySelector('#js_gh_repository')
-  const listBoardName = document.querySelector('#js_gh_board_list')
+  const listBoardId = document.querySelector('#js_gh_board_list')
 
   t.get('board', 'shared', 'github_user_info').then((personalGithubData) => {
     console.log(personalGithubData)
     ghToken.value = personalGithubData.ghToken
     pullRequestUrl.value = personalGithubData.pullRequestUrl
-    listBoardName.value = personalGithubData.listBoardName
+    listBoardId.value = personalGithubData.listBoardId
   })
   .then(() => {
     t.sizeTo('#jsghselection').done()
