@@ -158,47 +158,16 @@ TrelloPowerUp.initialize({
                 color: pullRequest.state === 'open'
                 ? 'green'
                 : 'purple',
-                refresh: 10
+                refresh: 30
               }
             })
           }
         }
       ]
     })
-    // .then((result) => result.json())
-    // .then((pullRequest) => {
-    //   console.log(pullRequest);
-
-    //   return [
-    //     {
-    //       text: pullRequest.state,
-    //       icon: PR_ICON,
-    //       color: pullRequest.state === 'open'
-    //       ? 'green'
-    //       : 'purple'
-    //     }
-    //   ]
-    // })
     .catch((err) => {
       console.log(err);
     })
-
-    // return [
-    //   {
-    //     dynamic: function() {
-    //       t.card('id').then((card) => {
-    //         console.log(card);
-    //         // window.Trello.get(`/1/cards/${card.id}/attachments`).then((attachments) => {
-    //         //   console.log(attachments);
-    //         // })
-    //       })
-
-    //       return {
-    //         refresh: 999999999999999
-    //       }
-    //     }
-    //   }
-    // ]
   },
   "board-buttons": function(t, opts) {
     return [
