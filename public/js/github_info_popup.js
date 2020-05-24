@@ -5,6 +5,18 @@ trelloAuth()
 
 var t = TrelloPowerUp.iframe()
 
+/* eslint-disable max-params */
+function mountSelectOptions(collection, selectSelector, displayKey, valueKey) {
+  collection.forEach((item) => {
+    const option = document.createElement('option');
+    option.text = item[displayKey]
+    option.value = item[valueKey]
+
+    const selectElement = document.querySelector(selectSelector)
+    selectElement.add(option)
+  })
+}
+
 document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   event.preventDefault()
 
@@ -36,14 +48,22 @@ t.render(() => {
     })
     .then((reposResponse) => reposResponse.json())
     .then((repos) => {
-      repos.forEach((repo) => {
-        const option = document.createElement('option');
-        option.text = repo.full_name
-        option.value = repo.pulls_url.replace(/\{\/number\}/gu, '')
-
-        const repoSelect = document.querySelector('#js_gh_repository')
-        repoSelect.add(option)
+      const mapRepo = repos.map((repo) => {
+        return {
+          fullName: repo.full_name,
+          pullUrl: repo.pulls_url.replace(/\{\/number\}/gu, '')
+        }
       })
+
+      mountSelectOptions(mapRepo, '#js_gh_repository', 'fullName', 'pullUrl')
+      // repos.forEach((repo) => {
+      //   const option = document.createElement('option');
+      //   option.text = repo.full_name
+      //   option.value = repo.pulls_url.replace(/\{\/number\}/gu, '')
+
+      //   const repoSelect = document.querySelector('#js_gh_repository')
+      //   repoSelect.add(option)
+      // })
     })
     .then(() => {
       document.querySelector('#js_gh_repository').value = githubUserInfo.pullRequestUrl
