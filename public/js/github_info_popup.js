@@ -39,6 +39,10 @@ t.render(() => {
   t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
     const githubToken = githubUserInfo.ghToken
 
+    t.lists('title').then((lists) => {
+      console.log(lists);
+    })
+
     const reposUrl = `https://api.github.com/user/repos?sort=pushed&per_page=20`
 
     return fetch(reposUrl, {
@@ -55,15 +59,10 @@ t.render(() => {
         }
       })
 
-      mountSelectOptions(mapRepo, '#js_gh_repository', 'fullName', 'pullUrl')
-      // repos.forEach((repo) => {
-      //   const option = document.createElement('option');
-      //   option.text = repo.full_name
-      //   option.value = repo.pulls_url.replace(/\{\/number\}/gu, '')
+      console.log(mapRepo);
+      
 
-      //   const repoSelect = document.querySelector('#js_gh_repository')
-      //   repoSelect.add(option)
-      // })
+      mountSelectOptions(mapRepo, '#js_gh_repository', 'fullName', 'pullUrl')
     })
     .then(() => {
       document.querySelector('#js_gh_repository').value = githubUserInfo.pullRequestUrl
