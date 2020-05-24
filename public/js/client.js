@@ -144,9 +144,11 @@ TrelloPowerUp.initialize({
         headers: {
           Authorization: `token ${githubToken}`
         }
-      }).then((pullRequest) => {
+      })
+      .then((result) => result.json())
+      .then((pullRequest) => {
         console.log(pullRequest);
-        
+
         return [
           {
             text: pullRequest.state,
