@@ -152,16 +152,14 @@ TrelloPowerUp.initialize({
             .then((pullRequest) => {
               console.log(pullRequest);
 
-              return [
-                {
-                  text: pullRequest.state,
-                  icon: PR_ICON,
-                  color: pullRequest.state === 'open'
-                  ? 'green'
-                  : 'purple',
-                  refresh: 10
-                }
-              ]
+              return {
+                text: pullRequest.state,
+                icon: PR_ICON,
+                color: pullRequest.state === 'open'
+                ? 'green'
+                : 'purple',
+                refresh: 10
+              }
             })
           }
         }
