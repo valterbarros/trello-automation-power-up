@@ -127,8 +127,8 @@ TrelloPowerUp.initialize({
       return window.Trello.get(`/cards/${card.id}/attachments`).then((attachments) => {
         const apiAttachments = attachments.filter((attachment) => attachment.url.match(/api.github.com/u))
 
-        apiAttachments.forEach((apiAttachment) => {
-          t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
+        t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
+          apiAttachments.forEach((apiAttachment) => {
             const githubToken = githubUserInfo.ghToken
 
             console.log(githubToken);
@@ -146,7 +146,8 @@ TrelloPowerUp.initialize({
                   color: pullRequest.state === 'open' ? 'green' : 'purple'
                 }
               ]
-            }).catch((err) => {
+            })
+            .catch((err) => {
               console.log(err);
             })
           })
