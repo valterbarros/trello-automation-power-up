@@ -124,34 +124,36 @@ TrelloPowerUp.initialize({
     options /* Returns some data from current card like id, etc*/
   ) {
     return t.card('id').then((card) => {
-      return window.Trello.get(`/cards/${card.id}/attachments`).then((attachments) => {
-        const apiAttachments = attachments.filter((attachment) => attachment.url.match(/api.github.com/u))
+      return window.Trello.get(`/cards/${card.id}/attachments`)
+    })
+    .then((attachments) => {
+      const apiAttachment = attachments.find((attachment) => attachment.url.match(/api.github.com/u))
 
-        t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
-          apiAttachments.forEach((apiAttachment) => {
-            const githubToken = githubUserInfo.ghToken
+      return Promise.all([t.get('board', 'shared', 'github_user_info'), apiAttachment])
+    })
+    .then(([githubUserInfo, apiAttachment]) => {
+      const githubToken = githubUserInfo.ghToken
 
-            console.log(githubToken);
-            console.log(apiAttachment);
+      console.log(githubToken);
+      console.log(apiAttachment);
 
-            fetch(apiAttachment.url, {
-              headers: {
-                Authorization: `token ${githubToken}`
-              }
-            }).then((pullRequest) => {
-              return [
-                {
-                  text: pullRequest.state,
-                  icon: PR_ICON,
-                  color: pullRequest.state === 'open' ? 'green' : 'purple'
-                }
-              ]
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-          })
-        })
+      return fetch(apiAttachment.url, {
+        headers: {
+          Authorization: `token ${githubToken}`
+        }
+      }).then((pullRequest) => {
+        return [
+          {
+            text: pullRequest.state,
+            icon: PR_ICON,
+            color: pullRequest.state === 'open'
+            ? 'green'
+            : 'purple'
+          }
+        ]
+      })
+      .catch((err) => {
+        console.log(err);
       })
     })
 
