@@ -145,23 +145,23 @@ TrelloPowerUp.initialize({
           Authorization: `token ${githubToken}`
         }
       })
-      .then((result) => result.json())
-      .then((pullRequest) => {
-        console.log(pullRequest);
+    })
+    .then((result) => result.json())
+    .then((pullRequest) => {
+      console.log(pullRequest);
 
-        return [
-          {
-            text: pullRequest.state,
-            icon: PR_ICON,
-            color: pullRequest.state === 'open'
-            ? 'green'
-            : 'purple'
-          }
-        ]
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+      return [
+        {
+          text: pullRequest.state,
+          icon: PR_ICON,
+          color: pullRequest.state === 'open'
+          ? 'green'
+          : 'purple'
+        }
+      ]
+    })
+    .catch((err) => {
+      console.log(err);
     })
 
     // return [
