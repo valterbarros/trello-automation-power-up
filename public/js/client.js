@@ -176,6 +176,7 @@ TrelloPowerUp.initialize({
               console.log(result);
               result.forEach(pullRequest => {
                 const pullRequestUrl = pullRequest.html_url;
+                const pullRequestApiUrl = pullRequest.url;
                 const userName = pullRequest.user.login;
                 const prState = pullRequest.state
                 const splittedUrl = pullRequestUrl.split('/');
@@ -197,7 +198,7 @@ TrelloPowerUp.initialize({
 
                   window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request api",
-                    url: `${pullRequestUrl}/${prNumber}`
+                    url: pullRequestApiUrl
                   });
                 });
               });
