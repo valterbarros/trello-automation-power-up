@@ -123,23 +123,30 @@ TrelloPowerUp.initialize({
     t,
     options /* Returns some data from current card like id, etc*/
   ) {
-    return [
-      {
-        dynamic: function() {
-          t.card('id').then((card) => {
-            console.log(card);
-            
-            // window.Trello.get(`/1/cards/${card.id}/attachments`).then((attachments) => {
-            //   console.log(attachments);
-            // })
-          })
+    t.card('id').then((card) => {
+      console.log(card);
 
-          return {
-            refresh: 999999999999999
-          }
-        }
-      }
-    ]
+      window.Trello.get(`/1/cards/${card.id}/attachments`).then((attachments) => {
+        console.log(attachments);
+      })
+    })
+
+    // return [
+    //   {
+    //     dynamic: function() {
+    //       t.card('id').then((card) => {
+    //         console.log(card);
+    //         // window.Trello.get(`/1/cards/${card.id}/attachments`).then((attachments) => {
+    //         //   console.log(attachments);
+    //         // })
+    //       })
+
+    //       return {
+    //         refresh: 999999999999999
+    //       }
+    //     }
+    //   }
+    // ]
   },
   "board-buttons": function(t, opts) {
     return [
