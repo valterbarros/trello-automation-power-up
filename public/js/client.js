@@ -128,6 +128,9 @@ TrelloPowerUp.initialize({
     })
     .then((attachments) => {
       const apiAttachment = attachments.find((attachment) => attachment.url.match(/api.github.com/u))
+      if (!apiAttachment) {
+        return []
+      }
 
       return Promise.all([t.get('board', 'shared', 'github_user_info'), apiAttachment])
     })
@@ -142,6 +145,8 @@ TrelloPowerUp.initialize({
           Authorization: `token ${githubToken}`
         }
       }).then((pullRequest) => {
+        console.log(pullRequest);
+        
         return [
           {
             text: pullRequest.state,
