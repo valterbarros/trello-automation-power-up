@@ -190,19 +190,14 @@ TrelloPowerUp.initialize({
                   idList: pullRequestsListIdAndName.id,
                   pos: "top"
                 }).then(card => {
-                  t.card(card.id).then((c) => {
-                    console.log(c)
-                  })
-                  t.set('card', 'shared', 'prUrl', `${pullRequestUrl}/${prNumber}`).then(() => {
-                    console.log('hellow')
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  })
-
                   window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request",
                     url: pullRequestUrl
+                  });
+
+                  window.Trello.post(`/card/${card.id}/attachments`, {
+                    name: "github pull request api",
+                    url: `${pullRequestUrl}/${prNumber}`
                   });
                 });
               });
