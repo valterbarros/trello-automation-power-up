@@ -124,10 +124,26 @@ TrelloPowerUp.initialize({
     options /* Returns some data from current card like id, etc*/
   ) {
     t.card('id').then((card) => {
-      console.log(card);
-
       window.Trello.get(`/cards/${card.id}/attachments`).then((attachments) => {
-        console.log(attachments);
+        attachments.forEach((attachment) => {
+          if (attachment.url.match(/api.github.com/u)) {
+            t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
+              const githubToken = githubUserInfo.ghToken
+
+              fetch(attachment.url, {
+                Authorization: `token ${githubToken}`
+              }).then((pullRequest) => {
+                return [
+                  {
+                    text: pullRequest.state,
+                    icon: PR_ICON,
+                    color: pullRequest.state === 'open' ? 'green' : 'purple'
+                  }
+                ]
+              })
+            })
+          }
+        })
       })
     })
 
