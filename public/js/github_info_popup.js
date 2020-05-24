@@ -39,8 +39,14 @@ t.render(() => {
   t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
     const githubToken = githubUserInfo.ghToken
 
-    t.board().then((board) => {
-      console.log(board);
+    t.board('id').then((board) => {
+      t.get(`boards/${board.id}/lists`)
+      .then((e) => {
+        console.log(e);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     })
     .catch((err) => {
       console.log(err);
