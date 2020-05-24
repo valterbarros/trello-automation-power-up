@@ -127,9 +127,11 @@ TrelloPowerUp.initialize({
       {
         dynamic: function() {
           t.card('id').then((card) => {
-            window.Trello.get(`/1/cards/${card.id}/attachments`).then((attachments) => {
-              console.log(attachments);
-            })
+            console.log(card);
+            
+            // window.Trello.get(`/1/cards/${card.id}/attachments`).then((attachments) => {
+            //   console.log(attachments);
+            // })
           })
 
           return {
