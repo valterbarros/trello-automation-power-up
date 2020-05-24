@@ -135,7 +135,9 @@ TrelloPowerUp.initialize({
             console.log(apiAttachment);
 
             fetch(apiAttachment.url, {
-              Authorization: `token ${githubToken}`
+              headers: {
+                Authorization: `token ${githubToken}`
+              }
             }).then((pullRequest) => {
               return [
                 {
