@@ -126,11 +126,14 @@ TrelloPowerUp.initialize({
     return [
       {
         dynamic: function() {
-          t.get('card', 'shared', 'prUrl').then((prLink) => {
-            console.log(prLink)
+          t.card('id').then((card) => {
+            window.Trello.get(`/1/cards/${card.id}/attachments`).then((attachments) => {
+              console.log(attachments);
+            })
           })
+
           return {
-            refresh: 99999999999999999
+            refresh: 999999999999999
           }
         }
       }
