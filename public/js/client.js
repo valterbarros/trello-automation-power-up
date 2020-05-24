@@ -144,6 +144,8 @@ TrelloPowerUp.initialize({
                   color: pullRequest.state === 'open' ? 'green' : 'purple'
                 }
               ]
+            }).catch((err) => {
+              console.log(err);
             })
           })
         })
