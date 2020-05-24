@@ -40,15 +40,14 @@ t.render(() => {
     const githubToken = githubUserInfo.ghToken
 
     t.board('id').then((board) => {
-      // t.get(`/boards/${board.id}/lists`)
-      // .then((e) => {
-      //   console.log(e);
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // })
+      window.Trello.get(`/boards/${board.id}/lists`)
+      .then((e) => {
+        console.log(e);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
       console.log(board);
-      
     })
     .catch((err) => {
       console.log(err);
