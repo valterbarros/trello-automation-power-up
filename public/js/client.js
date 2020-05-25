@@ -123,6 +123,8 @@ TrelloPowerUp.initialize({
     t,
     options /* Returns some data from current card like id, etc*/
   ) {
+    console.log(options.attachments);
+
     return t.card('id').then((card) => {
       return window.Trello.get(`/cards/${card.id}/attachments`)
     })
