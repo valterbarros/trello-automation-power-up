@@ -123,15 +123,13 @@ TrelloPowerUp.initialize({
     t,
     options /* Returns some data from current card like id, etc*/
   ) {
-    console.log(options.attachments);
+    const apiAttachment = options.attachments.find((attachment) => attachment.url.match(/api.github.com/u))
+
+    if (!apiAttachment) {
+      return []
+    }
 
     return t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
-      const apiAttachment = options.attachments.find((attachment) => attachment.url.match(/api.github.com/u))
-
-      if (!apiAttachment) {
-        return Promise.reject(new Error("this card doesn't have api attachment"))
-      }
-
       const githubToken = githubUserInfo.ghToken
 
       console.log(githubToken);

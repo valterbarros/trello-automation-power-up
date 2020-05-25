@@ -40,7 +40,7 @@ t.render(() => {
     const githubToken = githubUserInfo.ghToken
 
     t.board('id').then((board) => {
-      window.Trello.get(`/boards/${board.id}/lists`)
+      return window.Trello.get(`/boards/${board.id}/lists`)
       .then((lists) => {
         mountSelectOptions(lists, '#js_gh_board_list', 'name', 'id')
       })
@@ -54,14 +54,6 @@ t.render(() => {
     .catch((err) => {
       console.log(err);
     })
-
-    // t.get(`boards/${boardId}/lists`)
-    // .then((e) => {
-    //   console.log(e);
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // })
 
     const reposUrl = `https://api.github.com/user/repos?sort=pushed&per_page=20`
 
