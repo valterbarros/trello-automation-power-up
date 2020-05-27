@@ -5,6 +5,7 @@
   </head>
   <script>
     fetch('/.netlify/functions/hello')
+    .then((result) => result.json())
     .then((result) => console.log(result))
     .catch((err) => console.log(err))
   </script>
