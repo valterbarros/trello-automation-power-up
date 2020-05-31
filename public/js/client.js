@@ -195,10 +195,10 @@ TrelloPowerUp.initialize({
           .then((result) => {
             console.log(result);
             result.forEach(pullRequest => {
+              const pullRequestUrl = pullRequest.html_url;
 
               t.get("board", "shared", pullRequestUrl).then((hasPullRequest) => {
                 if(!hasPullRequest) {
-                  const pullRequestUrl = pullRequest.html_url;
                   const pullRequestApiUrl = pullRequest.url;
                   const userName = pullRequest.user.login;
                   const prState = pullRequest.state
