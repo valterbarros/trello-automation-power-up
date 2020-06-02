@@ -210,23 +210,23 @@ TrelloPowerUp.initialize({
                   const cardTitle = pullRequest.title;
                   const repoName = pullRequest.base.repo.name
 
-                  t.set("board", "shared", pullRequestUrl, true);
-
-                  window.Trello.post("/card", {
-                    name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
-                    idList: listBoardId,
-                    pos: "top"
-                  }).then(card => {
-                    window.Trello.post(`/card/${card.id}/attachments`, {
-                      name: "github pull request",
-                      url: pullRequestUrl
+                  t.set("board", "shared", pullRequestUrl, true).then(() => {
+                    window.Trello.post("/card", {
+                      name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
+                      idList: listBoardId,
+                      pos: "top"
+                    }).then(card => {
+                      window.Trello.post(`/card/${card.id}/attachments`, {
+                        name: "github pull request",
+                        url: pullRequestUrl
+                      });
+      
+                      window.Trello.post(`/card/${card.id}/attachments`, {
+                        name: "github pull request api",
+                        url: pullRequestApiUrl
+                      });
                     });
-    
-                    window.Trello.post(`/card/${card.id}/attachments`, {
-                      name: "github pull request api",
-                      url: pullRequestApiUrl
-                    });
-                  });
+                  })
                 }
               })
 
