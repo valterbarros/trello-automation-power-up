@@ -132,8 +132,8 @@ TrelloPowerUp.initialize({
     return t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
       const githubToken = githubUserInfo.ghToken
 
-      console.log(githubToken);
-      console.log(apiAttachment);
+      // console.log(githubToken);
+      // console.log(apiAttachment);
 
       return [
         {
@@ -196,7 +196,7 @@ TrelloPowerUp.initialize({
             console.log(result);
             result.forEach(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
-              t.get("board", "shared", pullRequestUrl).then((result) => {
+              t.get("board", "shared").then((result) => {
                 console.log(result);
               })
 
