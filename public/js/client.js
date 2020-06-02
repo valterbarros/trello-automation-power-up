@@ -211,7 +211,7 @@ TrelloPowerUp.initialize({
                   const repoName = pullRequest.base.repo.name
 
                   t.set("board", "shared", pullRequestUrl, true).then(() => {
-                    console.log('set code');
+                    console.log('set code', pullRequestUrl);
                     
                     window.Trello.post("/card", {
                       name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
