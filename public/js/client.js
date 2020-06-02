@@ -196,9 +196,9 @@ TrelloPowerUp.initialize({
             console.log(result);
             result.forEach(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
-              // t.remove("board", "shared").then((result) => {
-              //   console.log(result);
-              // })
+              t.get("board", "shared").then((result) => {
+                console.log(result);
+              })
 
               t.get("board", "shared", pullRequestUrl).then((hasPullRequest) => {
                 if(!hasPullRequest) {
