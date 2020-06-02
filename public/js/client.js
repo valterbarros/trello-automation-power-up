@@ -145,7 +145,7 @@ TrelloPowerUp.initialize({
             })
             .then((result) => result.json())
             .then((pullRequest) => {
-              console.log(pullRequest);
+              // console.log(pullRequest);
 
               return {
                 text: pullRequest.state,
@@ -196,7 +196,7 @@ TrelloPowerUp.initialize({
             console.log(result);
             result.forEach(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
-              t.get("board", "shared").then((result) => {
+              t.get("board", "shared", pullRequestUrl).then((result) => {
                 console.log(result);
               })
 
