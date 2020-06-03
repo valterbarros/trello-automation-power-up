@@ -196,11 +196,13 @@ TrelloPowerUp.initialize({
             console.log(result);
             result.forEach(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
-              t.get("board", "shared").then((result) => {
-                console.log(result);
-              })
 
-              t.get("board", "shared", pullRequestUrl).then((hasPullRequest) => {
+              t.get("board", "shared").then((boardSharedData) => {
+                console.log(boardSharedData);
+
+                const hasPullRequest = boardSharedData[pullRequestUrl];
+                console.log(hasPullRequest);
+                
                 if(!hasPullRequest) {
                   const pullRequestApiUrl = pullRequest.url;
                   const userName = pullRequest.user.login;
@@ -209,7 +211,7 @@ TrelloPowerUp.initialize({
                   const prNumber = splittedUrl[splittedUrl.length - 1];
                   const cardTitle = pullRequest.title;
                   const repoName = pullRequest.base.repo.name
-
+  
                   t.set("board", "shared", pullRequestUrl, true).then(() => {
                     console.log('set code', pullRequestUrl);
                     
@@ -231,7 +233,6 @@ TrelloPowerUp.initialize({
                   })
                 }
               })
-
             });
           })
           .catch((err) => {
