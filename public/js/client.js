@@ -167,6 +167,14 @@ TrelloPowerUp.initialize({
   "board-buttons": function(t, opts) {
     return [
       {
+        text: 'hey',
+        callback: function(t, opts) {
+          t.get('board', 'shared').then((result) => {
+            console.log(result);
+          })
+        }
+      },
+      {
         // we can either provide a button that has a callback function
         icon: {
           dark: PR_ICON,
