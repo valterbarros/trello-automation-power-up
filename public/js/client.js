@@ -205,42 +205,35 @@ TrelloPowerUp.initialize({
             result.forEach(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
 
-              t.get("board", "shared").then((boardSharedData) => {
-                console.log(boardSharedData);
+              const previousPrs = JSON.parse(localStorage.getItem('savedPullRequests'));
 
-                const hasPullRequest = boardSharedData[pullRequestUrl];
-                console.log(hasPullRequest);
-                
-                if(!hasPullRequest) {
-                  const pullRequestApiUrl = pullRequest.url;
-                  const userName = pullRequest.user.login;
-                  const prState = pullRequest.state
-                  const splittedUrl = pullRequestUrl.split('/');
-                  const prNumber = splittedUrl[splittedUrl.length - 1];
-                  const cardTitle = pullRequest.title;
-                  const repoName = pullRequest.base.repo.name
+              localStorage.setItem('savedPullRequests', {...previousPrs, ...{[pullRequestUrl]: true}})
+
+              if(!hasPullRequest) {
+                const pullRequestApiUrl = pullRequest.url;
+                const userName = pullRequest.user.login;
+                const prState = pullRequest.state
+                const splittedUrl = pullRequestUrl.split('/');
+                const prNumber = splittedUrl[splittedUrl.length - 1];
+                const cardTitle = pullRequest.title;
+                const repoName = pullRequest.base.repo.name
+
+                window.Trello.post("/card", {
+                  name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
+                  idList: listBoardId,
+                  pos: "top"
+                }).then(card => {
+                  window.Trello.post(`/card/${card.id}/attachments`, {
+                    name: "github pull request",
+                    url: pullRequestUrl
+                  });
   
-                  t.set("board", "shared", pullRequestUrl, true).then(() => {
-                    console.log('set code', pullRequestUrl);
-                    
-                    window.Trello.post("/card", {
-                      name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
-                      idList: listBoardId,
-                      pos: "top"
-                    }).then(card => {
-                      window.Trello.post(`/card/${card.id}/attachments`, {
-                        name: "github pull request",
-                        url: pullRequestUrl
-                      });
-      
-                      window.Trello.post(`/card/${card.id}/attachments`, {
-                        name: "github pull request api",
-                        url: pullRequestApiUrl
-                      });
-                    });
-                  })
-                }
-              })
+                  window.Trello.post(`/card/${card.id}/attachments`, {
+                    name: "github pull request api",
+                    url: pullRequestApiUrl
+                  });
+                });
+              }
             });
           })
           .catch((err) => {
