@@ -209,7 +209,7 @@ TrelloPowerUp.initialize({
 
               localStorage.setItem('savedPullRequests', {...previousPrs, ...{[pullRequestUrl]: true}})
 
-              if(!hasPullRequest) {
+              if(!false) {
                 const pullRequestApiUrl = pullRequest.url;
                 const userName = pullRequest.user.login;
                 const prState = pullRequest.state
