@@ -244,7 +244,7 @@ TrelloPowerUp.initialize({
 
             Promise.all(getRequestsMap).then(() => {
               console.log(allPrs);
-              return t.set('board', 'shared', allPrs);
+              return t.remove('board', 'shared');
             }).then(() => {
               t.get('board', 'shared').then((data) => {
                 console.log(data);
