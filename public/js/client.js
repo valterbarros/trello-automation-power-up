@@ -208,11 +208,6 @@ TrelloPowerUp.initialize({
             const getRequestsMap = result.map(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
 
-              // const previousPrs = JSON.parse(localStorage.getItem('savedPullRequests'));
-              // console.log(previousPrs);
-
-              // localStorage.setItem('savedPullRequests', JSON.stringify({...previousPrs, ...{[pullRequestUrl]: true}}))
-
               if(!allExistentPrs.includes(pullRequestUrl)) {
                 const pullRequestApiUrl = pullRequest.url;
                 const userName = pullRequest.user.login;
@@ -227,16 +222,17 @@ TrelloPowerUp.initialize({
                   idList: listBoardId,
                   pos: "top"
                 }).then(card => {
-                  return window.Trello.post(`/card/${card.id}/attachments`, {
+                  window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request",
                     url: pullRequestUrl
                   });
-                }).then(() => {
-                  // return window.Trello.post(`/card/${card.id}/attachments`, {
-                  //   name: "github pull request api",
-                  //   url: pullRequestApiUrl
-                  // });
-                  return
+
+                  return card
+                }).then((card) => {
+                  return window.Trello.post(`/card/${card.id}/attachments`, {
+                    name: "github pull request api",
+                    url: pullRequestApiUrl
+                  });
                 }).then(() => {
                   allPrs[pullRequestUrl] = true
                 })
