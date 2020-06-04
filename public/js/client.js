@@ -202,13 +202,15 @@ TrelloPowerUp.initialize({
           })
           .then((result) => {
             console.log(result);
-            result.forEach(pullRequest => {
+            allPrs = {}
+
+            const getRequestsMap = result.map(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
 
-              const previousPrs = JSON.parse(localStorage.getItem('savedPullRequests'));
-              console.log(previousPrs);
+              // const previousPrs = JSON.parse(localStorage.getItem('savedPullRequests'));
+              // console.log(previousPrs);
 
-              localStorage.setItem('savedPullRequests', JSON.stringify({...previousPrs, ...{[pullRequestUrl]: true}}))
+              // localStorage.setItem('savedPullRequests', JSON.stringify({...previousPrs, ...{[pullRequestUrl]: true}}))
 
               if(!false) {
                 const pullRequestApiUrl = pullRequest.url;
@@ -219,23 +221,29 @@ TrelloPowerUp.initialize({
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
 
-                window.Trello.post("/card", {
+                return window.Trello.post("/card", {
                   name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
                   idList: listBoardId,
                   pos: "top"
                 }).then(card => {
-                  window.Trello.post(`/card/${card.id}/attachments`, {
+                  return window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request",
                     url: pullRequestUrl
                   });
-  
-                  window.Trello.post(`/card/${card.id}/attachments`, {
+                }).then(() => {
+                  return window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request api",
                     url: pullRequestApiUrl
                   });
-                });
+                }).then(() => {
+                  allPrs[pullRequestUrl] = true
+                })
               }
-            });
+            })
+
+            Promise.all(getRequestsMap).then(() => {
+              console.log(allPrs);
+            })
           })
           .catch((err) => {
             console.log(err);
