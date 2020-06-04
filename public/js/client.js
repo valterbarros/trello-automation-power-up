@@ -231,10 +231,11 @@ TrelloPowerUp.initialize({
                     url: pullRequestUrl
                   });
                 }).then(() => {
-                  return window.Trello.post(`/card/${card.id}/attachments`, {
-                    name: "github pull request api",
-                    url: pullRequestApiUrl
-                  });
+                  // return window.Trello.post(`/card/${card.id}/attachments`, {
+                  //   name: "github pull request api",
+                  //   url: pullRequestApiUrl
+                  // });
+                  return
                 }).then(() => {
                   allPrs[pullRequestUrl] = true
                 })
