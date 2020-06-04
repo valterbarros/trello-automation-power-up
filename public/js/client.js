@@ -205,9 +205,8 @@ TrelloPowerUp.initialize({
             result.forEach(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
 
-              const previousPrs = {}
+              const previousPrs = JSON.parse(localStorage.getItem('savedPullRequests'));
               console.log(previousPrs);
-              
 
               localStorage.setItem('savedPullRequests', JSON.stringify({...previousPrs, ...{[pullRequestUrl]: true}}))
 
