@@ -198,11 +198,12 @@ TrelloPowerUp.initialize({
             });
           })
           .then((result) => {
-            return result.json()
+            return Promise.all([result.json(), t.get('board', 'shared')])
           })
-          .then((result) => {
+          .then(([result, boardData]) => {
             console.log(result);
             allPrs = {}
+            const allExistentPrs = Object.keys(boardData);
 
             const getRequestsMap = result.map(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
@@ -212,7 +213,7 @@ TrelloPowerUp.initialize({
 
               // localStorage.setItem('savedPullRequests', JSON.stringify({...previousPrs, ...{[pullRequestUrl]: true}}))
 
-              if(!false) {
+              if(!allExistentPrs.includes(pullRequestUrl)) {
                 const pullRequestApiUrl = pullRequest.url;
                 const userName = pullRequest.user.login;
                 const prState = pullRequest.state
@@ -244,41 +245,10 @@ TrelloPowerUp.initialize({
 
             Promise.all(getRequestsMap).then(() => {
               console.log(allPrs);
-              return t.remove('board', 'shared', ['https://github.com/TIDYAPP/homekeeper-app-v3/pull/303',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/304',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/305',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/306',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/310',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/311',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/312',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/313',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/314',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/315',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/316',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/317',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/318',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/319',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/320',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/321',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/322',
-              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/323',
-              'https://github.com/TIDYAPP/payments_api/pull/14',
-              'https://github.com/TIDYAPP/payments_api/pull/199',
-              'https://github.com/TIDYAPP/payments_api/pull/231',
-              'https://github.com/TIDYAPP/payments_api/pull/233',
-              'https://github.com/TIDYAPP/payments_api/pull/235',
-              'https://github.com/TIDYAPP/payments_api/pull/237',
-              'https://github.com/TIDYAPP/payments_api/pull/239',
-              'https://github.com/TIDYAPP/payments_api/pull/241',
-              'https://github.com/TIDYAPP/payments_api/pull/242',
-              'https://github.com/TIDYAPP/payments_api/pull/243',
-              'https://github.com/TIDYAPP/payments_api/pull/244',
-              'https://github.com/TIDYAPP/payments_api/pull/245',
-              'https://github.com/TIDYAPP/payments_api/pull/246',]);
+              return t.set('board', 'shared', allPrs);
             }).then(() => {
               t.get('board', 'shared').then((data) => {
                 console.log(data);
-                
               })
             })
           })
