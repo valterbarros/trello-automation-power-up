@@ -244,7 +244,37 @@ TrelloPowerUp.initialize({
 
             Promise.all(getRequestsMap).then(() => {
               console.log(allPrs);
-              return t.remove('board', 'shared');
+              return t.remove('board', 'shared', ['https://github.com/TIDYAPP/homekeeper-app-v3/pull/303',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/304',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/305',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/306',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/310',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/311',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/312',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/313',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/314',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/315',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/316',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/317',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/318',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/319',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/320',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/321',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/322',
+              'https://github.com/TIDYAPP/homekeeper-app-v3/pull/323',
+              'https://github.com/TIDYAPP/payments_api/pull/14',
+              'https://github.com/TIDYAPP/payments_api/pull/199',
+              'https://github.com/TIDYAPP/payments_api/pull/231',
+              'https://github.com/TIDYAPP/payments_api/pull/233',
+              'https://github.com/TIDYAPP/payments_api/pull/235',
+              'https://github.com/TIDYAPP/payments_api/pull/237',
+              'https://github.com/TIDYAPP/payments_api/pull/239',
+              'https://github.com/TIDYAPP/payments_api/pull/241',
+              'https://github.com/TIDYAPP/payments_api/pull/242',
+              'https://github.com/TIDYAPP/payments_api/pull/243',
+              'https://github.com/TIDYAPP/payments_api/pull/244',
+              'https://github.com/TIDYAPP/payments_api/pull/245',
+              'https://github.com/TIDYAPP/payments_api/pull/246',]);
             }).then(() => {
               t.get('board', 'shared').then((data) => {
                 console.log(data);
