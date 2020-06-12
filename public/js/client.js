@@ -235,6 +235,8 @@ TrelloPowerUp.initialize({
                   });
                 }).then(() => {
                   allPrs[pullRequestUrl] = true
+                }).catch((err) => {
+                  console.log(err);
                 })
               }
             })
