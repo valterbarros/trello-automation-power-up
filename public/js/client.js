@@ -154,6 +154,8 @@ TrelloPowerUp.initialize({
                 ? 'green'
                 : 'purple',
                 refresh: 30
+              },{
+                icon: PR_ICON,
               }
             })
           }
