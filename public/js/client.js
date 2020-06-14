@@ -212,7 +212,7 @@ TrelloPowerUp.initialize({
                 }
 
                 return accumulator += `${review.user.login.substring(0,1).toLocaleUpperCase()}: ${statusLabel} `
-              }, '')
+              }, '') || 'No Reviews'
 
               return {
                 text,
