@@ -157,6 +157,29 @@ TrelloPowerUp.initialize({
               }
             })
           }
+        },
+        {
+          dynamic: function() {
+            const getPrReviews = `${apiAttachment.url}/reviews`;
+            return fetch(getPrReviews, {
+              headers: {
+                Authorization: `token ${githubToken}`
+              }
+            })
+            .then((result) => result.json())
+            .then((reviews) => {
+              console.log(reviews);
+
+              return {
+                // text: pullRequest.state,
+                // icon: PR_ICON,
+                // color: pullRequest.state === 'open'
+                // ? 'green'
+                // : 'purple',
+                refresh: 999999
+              }
+            })
+          }
         }
       ]
     })
