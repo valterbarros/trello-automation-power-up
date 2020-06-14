@@ -150,7 +150,7 @@ TrelloPowerUp.initialize({
             .then(([reviews, cardInfo]) => {
               reviews.forEach((review /*state, user.login*/) => {
                 window.Trello.put(`cards/${cardInfo.id}`, {
-                  name: `${cardInfo.name} [${review.user.login}] => ${review.state}!`
+                  name: `${cardInfo.name.split('|')[0]} | [${review.user.login}] => ${review.state}!`
                 })
               })
             })
