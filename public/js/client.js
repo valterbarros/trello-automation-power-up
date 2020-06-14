@@ -171,13 +171,15 @@ TrelloPowerUp.initialize({
               console.log(reviews);
 
               return {
-                // text: pullRequest.state,
+                text: pullRequest.user.substr(0,1).toLocaleUpperCase(),
                 // icon: PR_ICON,
-                // color: pullRequest.state === 'open'
-                // ? 'green'
-                // : 'purple',
-                refresh: 999999
+                color: pullRequest.state === 'APPROVED'
+                ? 'green'
+                : 'yellow',
+                refresh: 30
               }
+            }).catch((err) => {
+              console.log('ERROR: getting pr review', err);
             })
           }
         }
