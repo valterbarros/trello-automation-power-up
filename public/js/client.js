@@ -169,6 +169,9 @@ TrelloPowerUp.initialize({
             .then((result) => result.json())
             .then((reviews) => {
               console.log(reviews);
+              if(reviews.length === 0) {
+                return {}
+              }
 
               return {
                 text: reviews[0].user.login.substr(0,1).toLocaleUpperCase(),
