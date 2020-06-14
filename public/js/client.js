@@ -136,33 +136,33 @@ TrelloPowerUp.initialize({
       console.log('hello');
       const getPrReviews = `${apiAttachment.url}/reviews`;
 
-      if(!window.prIntervals.includes(getPrReviews)) {
-        const timer = setInterval(() => {
-          // Update pull request reviews with status
-          prIntervals.push(getPrReviews);
+      // if(!window.prIntervals.includes(getPrReviews)) {
+      //   const timer = setInterval(() => {
+      //     // Update pull request reviews with status
+      //     prIntervals.push(getPrReviews);
 
-          fetch(getPrReviews, {
-            headers: {
-              Authorization: `token ${githubToken}`
-            }
-          })
-          .then((result) => result.json())
-          .then((reviews) => Promise.all([reviews, t.card('id','name')]))
-          .then(([reviews, cardInfo]) => {
-            const cardId = cardInfo.id
-            const cardName = cardInfo.name.split('|')[0]
+      //     fetch(getPrReviews, {
+      //       headers: {
+      //         Authorization: `token ${githubToken}`
+      //       }
+      //     })
+      //     .then((result) => result.json())
+      //     .then((reviews) => Promise.all([reviews, t.card('id','name')]))
+      //     .then(([reviews, cardInfo]) => {
+      //       const cardId = cardInfo.id
+      //       const cardName = cardInfo.name.split('|')[0]
 
-            reviews.forEach((review /*state, user.login*/) => {
-              window.Trello.put(`cards/${cardId}`, {
-                name: `${cardName} | [${review.user.login}] => ${review.state}!`
-              })
-            })
-          }).catch((err) => {
-            console.log('ERROR: on pull request reviews update');
-          })
-          // Update pull request reviews with status end
-        }, 30000)
-      }
+      //       reviews.forEach((review /*state, user.login*/) => {
+      //         window.Trello.put(`cards/${cardId}`, {
+      //           name: `${cardName} | [${review.user.login}] => ${review.state}!`
+      //         })
+      //       })
+      //     }).catch((err) => {
+      //       console.log('ERROR: on pull request reviews update');
+      //     })
+      //     // Update pull request reviews with status end
+      //   }, 30000)
+      // }
 
       return [
         {
