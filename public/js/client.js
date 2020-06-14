@@ -138,6 +138,8 @@ TrelloPowerUp.initialize({
       return [
         {
           dynamic: function() {
+            console.log('hello');
+            
             // Update pull request reviews with status
             const getPrReviews = `${apiAttachment.url}/reviews`;
 
