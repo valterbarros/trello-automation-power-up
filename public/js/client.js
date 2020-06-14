@@ -171,7 +171,7 @@ TrelloPowerUp.initialize({
               console.log(reviews);
 
               return {
-                text: reviews[0].user.substr(0,1).toLocaleUpperCase(),
+                text: reviews[0].user.login.substr(0,1).toLocaleUpperCase(),
                 // icon: PR_ICON,
                 color: reviews[0].state === 'APPROVED'
                 ? 'green'
