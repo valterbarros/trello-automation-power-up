@@ -138,31 +138,37 @@ TrelloPowerUp.initialize({
       return [
         {
           dynamic: function() {
+            const prIntervals = []
             console.log('hello');
-            
-            // Update pull request reviews with status
             const getPrReviews = `${apiAttachment.url}/reviews`;
 
-            fetch(getPrReviews, {
-              headers: {
-                Authorization: `token ${githubToken}`
-              }
-            })
-            .then((result) => result.json())
-            .then((reviews) => Promise.all([reviews, t.card('id','name')]))
-            .then(([reviews, cardInfo]) => {
-              const cardId = cardInfo.id
-              const cardName = cardInfo.name.split('|')[0]
-
-              reviews.forEach((review /*state, user.login*/) => {
-                window.Trello.put(`cards/${cardId}`, {
-                  name: `${cardName} | [${review.user.login}] => ${review.state}!`
+            if(!prIntervals.includes(getPrReviews)) {
+              const timer = setInterval(() => {
+                // Update pull request reviews with status
+                prIntervals.push(getPrReviews);
+    
+                fetch(getPrReviews, {
+                  headers: {
+                    Authorization: `token ${githubToken}`
+                  }
                 })
-              })
-            }).catch((err) => {
-              console.log('ERROR: on pull request reviews update');
-            })
-            // Update pull request reviews with status end
+                .then((result) => result.json())
+                .then((reviews) => Promise.all([reviews, t.card('id','name')]))
+                .then(([reviews, cardInfo]) => {
+                  const cardId = cardInfo.id
+                  const cardName = cardInfo.name.split('|')[0]
+    
+                  reviews.forEach((review /*state, user.login*/) => {
+                    window.Trello.put(`cards/${cardId}`, {
+                      name: `${cardName} | [${review.user.login}] => ${review.state}!`
+                    })
+                  })
+                }).catch((err) => {
+                  console.log('ERROR: on pull request reviews update');
+                })
+                // Update pull request reviews with status end
+              }, 30000)
+            }
 
             return fetch(apiAttachment.url, {
               headers: {
