@@ -138,6 +138,7 @@ TrelloPowerUp.initialize({
       return [
         {
           dynamic: function() {
+            // Update pull request reviews with status
             const getPrReviews = `${apiAttachment.url}/reviews`;
 
             fetch(getPrReviews, {
@@ -148,12 +149,18 @@ TrelloPowerUp.initialize({
             .then((result) => result.json())
             .then((reviews) => Promise.all([reviews, t.card('id','name')]))
             .then(([reviews, cardInfo]) => {
+              const cardId = cardInfo.id
+              const cardName = cardInfo.name.split('|')[0]
+
               reviews.forEach((review /*state, user.login*/) => {
-                window.Trello.put(`cards/${cardInfo.id}`, {
-                  name: `${cardInfo.name.split('|')[0]} | [${review.user.login}] => ${review.state}!`
+                window.Trello.put(`cards/${cardId}`, {
+                  name: `${cardName} | [${review.user.login}] => ${review.state}!`
                 })
               })
+            }).catch((err) => {
+              console.log('ERROR: on pull request reviews update');
             })
+            // Update pull request reviews with status end
 
             return fetch(apiAttachment.url, {
               headers: {
