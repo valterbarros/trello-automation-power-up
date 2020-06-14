@@ -201,7 +201,19 @@ TrelloPowerUp.initialize({
               // console.log(pullRequest);
 
               const text = reviews.reduce((accumulator, review /*state user.login*/) => {
-                return accumulator += `${review.user.login}: ${review.state} `
+                let statusLabel = ''
+
+                if(review.state === 'APPROVED') {
+                  statusLabel = 'OK'
+                } else if (review.state === 'COMMENT') {
+                  statusLabel = 'C'
+                } else if (review.state === 'REQUEST_CHANGES') {
+                  statusLabel = 'RC'
+                } else if(review.state === 'PENDING') {
+                  statusLabel = 'P'
+                }
+
+                return accumulator += `${review.user.login.substring(0,1).toLocaleUpperCase()}: ${statusLabel} `
               }, '')
 
               return {
