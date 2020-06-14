@@ -132,44 +132,41 @@ TrelloPowerUp.initialize({
     return t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
       const githubToken = githubUserInfo.ghToken
 
-      // console.log(githubToken);
-      // console.log(apiAttachment);
+      window.prIntervals = []
+      console.log('hello');
+      const getPrReviews = `${apiAttachment.url}/reviews`;
+
+      if(!window.prIntervals.includes(getPrReviews)) {
+        const timer = setInterval(() => {
+          // Update pull request reviews with status
+          prIntervals.push(getPrReviews);
+
+          fetch(getPrReviews, {
+            headers: {
+              Authorization: `token ${githubToken}`
+            }
+          })
+          .then((result) => result.json())
+          .then((reviews) => Promise.all([reviews, t.card('id','name')]))
+          .then(([reviews, cardInfo]) => {
+            const cardId = cardInfo.id
+            const cardName = cardInfo.name.split('|')[0]
+
+            reviews.forEach((review /*state, user.login*/) => {
+              window.Trello.put(`cards/${cardId}`, {
+                name: `${cardName} | [${review.user.login}] => ${review.state}!`
+              })
+            })
+          }).catch((err) => {
+            console.log('ERROR: on pull request reviews update');
+          })
+          // Update pull request reviews with status end
+        }, 30000)
+      }
 
       return [
         {
           dynamic: function() {
-            const prIntervals = []
-            console.log('hello');
-            const getPrReviews = `${apiAttachment.url}/reviews`;
-
-            if(!prIntervals.includes(getPrReviews)) {
-              const timer = setInterval(() => {
-                // Update pull request reviews with status
-                prIntervals.push(getPrReviews);
-    
-                fetch(getPrReviews, {
-                  headers: {
-                    Authorization: `token ${githubToken}`
-                  }
-                })
-                .then((result) => result.json())
-                .then((reviews) => Promise.all([reviews, t.card('id','name')]))
-                .then(([reviews, cardInfo]) => {
-                  const cardId = cardInfo.id
-                  const cardName = cardInfo.name.split('|')[0]
-    
-                  reviews.forEach((review /*state, user.login*/) => {
-                    window.Trello.put(`cards/${cardId}`, {
-                      name: `${cardName} | [${review.user.login}] => ${review.state}!`
-                    })
-                  })
-                }).catch((err) => {
-                  console.log('ERROR: on pull request reviews update');
-                })
-                // Update pull request reviews with status end
-              }, 30000)
-            }
-
             return fetch(apiAttachment.url, {
               headers: {
                 Authorization: `token ${githubToken}`
@@ -190,6 +187,34 @@ TrelloPowerUp.initialize({
             })
           }
         },
+        {
+          dynamic: function() {
+            const getPrReviews = `${apiAttachment.url}/reviews`;
+
+            return fetch(getPrReviews, {
+              headers: {
+                Authorization: `token ${githubToken}`
+              }
+            })
+            .then((result) => result.json())
+            .then((reviews) => {
+              // console.log(pullRequest);
+
+              const text = reviews.reduce((accumulator, review /*state user.login*/) => {
+                accumulator += `${review.user.login.substring(0,1).toLocaleUpperCase()}: ${state.substring(0,1).toLocaleUpperCase()}`
+              }, '')
+
+              return {
+                text,
+                icon: PR_ICON,
+                // color: pullRequest.state === 'open'
+                // ? 'green'
+                // : 'purple',
+                refresh: 30
+              }
+            })
+          }
+        }
       ]
     })
     .catch((err) => {
