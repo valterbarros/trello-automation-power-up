@@ -138,6 +138,23 @@ TrelloPowerUp.initialize({
       return [
         {
           dynamic: function() {
+            const getPrReviews = `${apiAttachment.url}/reviews`;
+
+            fetch(getPrReviews, {
+              headers: {
+                Authorization: `token ${githubToken}`
+              }
+            })
+            .then((result) => result.json())
+            .then((reviews) => Promise.all([reviews, t.card('id','name')]))
+            .then(([reviews, cardInfo]) => {
+              reviews.forEach((review /*state, user.login*/) => {
+                window.Trello.put(`cards/${cardInfo.id}`, {
+                  name: `${cardInfo.name} [${review.user.login}] => ${review.state}!`
+                })
+              })
+            })
+
             return fetch(apiAttachment.url, {
               headers: {
                 Authorization: `token ${githubToken}`
@@ -154,8 +171,6 @@ TrelloPowerUp.initialize({
                 ? 'green'
                 : 'purple',
                 refresh: 30
-              },{
-                icon: PR_ICON,
               }
             })
           }
