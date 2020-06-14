@@ -205,12 +205,8 @@ TrelloPowerUp.initialize({
 
                 if(review.state === 'APPROVED') {
                   statusLabel = 'OK'
-                } else if (review.state === 'COMMENT') {
-                  statusLabel = 'C'
-                } else if (review.state === 'REQUEST_CHANGES') {
-                  statusLabel = 'RC'
-                } else if(review.state === 'PENDING') {
-                  statusLabel = 'P'
+                } else  {
+                  statusLabel = 'NO'
                 }
 
                 return accumulator += `${review.user.login.substring(0,1).toLocaleUpperCase()}: ${statusLabel} `
