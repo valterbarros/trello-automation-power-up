@@ -250,9 +250,10 @@ TrelloPowerUp.initialize({
                 const prNumber = splittedUrl[splittedUrl.length - 1];
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
+                const draftLabel = pullRequest.draft ? '[Draft]' : ''
 
                 return window.Trello.post("/card", {
-                  name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
+                  name: `${cardTitle} ${draftLabel} [${repoName}] [${userName}] #${prNumber} [${prState}]`,
                   idList: listBoardId,
                   pos: "top"
                 }).then(card => {
