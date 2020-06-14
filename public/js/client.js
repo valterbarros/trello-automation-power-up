@@ -201,7 +201,7 @@ TrelloPowerUp.initialize({
               // console.log(pullRequest);
 
               const text = reviews.reduce((accumulator, review /*state user.login*/) => {
-                return accumulator += `${review.user.login.substring(0,1).toLocaleUpperCase()}: ${review.state.substring(0,1).toLocaleUpperCase()}`
+                return accumulator += `${review.user.login}: ${review.state} `
               }, '')
 
               return {
