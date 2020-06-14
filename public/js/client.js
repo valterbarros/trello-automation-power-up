@@ -199,12 +199,14 @@ TrelloPowerUp.initialize({
             .then((result) => result.json())
             .then((reviews) => {
               // console.log(pullRequest);
+              let approvedCount = 0;
 
               const text = reviews.reduce((accumulator, review /*state user.login*/) => {
                 let statusLabel = ''
 
                 if(review.state === 'APPROVED') {
                   statusLabel = 'OK'
+                  approvedCount += 1
                 } else  {
                   statusLabel = 'NO'
                 }
@@ -214,10 +216,9 @@ TrelloPowerUp.initialize({
 
               return {
                 text,
-                icon: PR_ICON,
-                // color: pullRequest.state === 'open'
-                // ? 'green'
-                // : 'purple',
+                color: approvedCount > 1
+                ? 'green'
+                : 'yellow',
                 refresh: 30
               }
             })
