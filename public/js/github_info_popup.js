@@ -29,7 +29,7 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
     ghToken,
     pullRequestUrl: pullRequestUrl.value,
     listBoardId: listBoardId.value,
-    skipPrName
+    skipPrName: skipPrName.value
   })
   .then(() => {
     t.closePopup()
