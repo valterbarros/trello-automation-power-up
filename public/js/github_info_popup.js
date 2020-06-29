@@ -23,11 +23,13 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   const ghToken = document.querySelector('#js_gh_token').value
   const pullRequestUrl = document.querySelector('#js_gh_repository')
   const listBoardId = document.querySelector('#js_gh_board_list')
+  const skipPrName = document.querySelector('#js_skip_name')
 
   return t.set('board', 'shared', 'github_user_info', {
     ghToken,
     pullRequestUrl: pullRequestUrl.value,
-    listBoardId: listBoardId.value
+    listBoardId: listBoardId.value,
+    skipPrName
   })
   .then(() => {
     t.closePopup()
@@ -86,12 +88,14 @@ t.render(() => {
   const ghToken = document.querySelector('#js_gh_token')
   const pullRequestUrl = document.querySelector('#js_gh_repository')
   const listBoardId = document.querySelector('#js_gh_board_list')
+  const skipPrName = document.querySelector('#js_skip_name')
 
   t.get('board', 'shared', 'github_user_info').then((personalGithubData) => {
     console.log(personalGithubData)
     ghToken.value = personalGithubData.ghToken
     pullRequestUrl.value = personalGithubData.pullRequestUrl
     listBoardId.value = personalGithubData.listBoardId
+    skipPrName.value = personalGithubData.skipPrName
   })
   .then(() => {
     t.sizeTo('#jsghselection').done()

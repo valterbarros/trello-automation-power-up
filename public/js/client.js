@@ -243,8 +243,6 @@ TrelloPowerUp.initialize({
             console.log(githubPullRequests);
             allPrs = {}
             const allExistentPrs = Object.keys(boardData);
-            console.log(allExistentPrs);
-            
 
             /* Get a list of created cards to remove in case of a error on set board shared data
              * currently that error could appear happen you save a lot of prs on your trello's board
@@ -252,7 +250,10 @@ TrelloPowerUp.initialize({
              */
             const createdCardIds = [];
 
-            const getRequestsMap = githubPullRequests.map(pullRequest => {
+            const githubPullRequestsFiltered = githubPullRequests
+              .filter((pullRequest) => !pullRequest.title.indexOf(boardData.skipPrName))
+
+            const getRequestsMap = githubPullRequestsFiltered.map(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
 
               // Check if pr is already tracked on a Trello's card
@@ -265,8 +266,6 @@ TrelloPowerUp.initialize({
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
                 const draftLabel = pullRequest.draft === true ? '[Draft]' : '';
-                console.log(pullRequestUrl);
-                
 
                 return window.Trello.post("/card", {
                   name: `${cardTitle} ${draftLabel} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
