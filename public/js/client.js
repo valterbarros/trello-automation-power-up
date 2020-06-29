@@ -252,6 +252,8 @@ TrelloPowerUp.initialize({
 
             const githubPullRequestsFiltered = githubPullRequests
               .filter((pullRequest) => !pullRequest.title.indexOf(boardData.skipPrName))
+            console.log(boardData.skipPrName);
+            
 
             const getRequestsMap = githubPullRequestsFiltered.map(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
