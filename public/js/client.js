@@ -204,6 +204,7 @@ TrelloPowerUp.initialize({
         // Remove all shared board data(pr links) in case of exceed the trello power up storage
         text: 'Reset data',
         callback: function(t) {
+          const allowedKeys = ['ghToken', 'pullRequestUrl', 'listBoardId'];
           t.get('board', 'shared').then((result) => {
             t.remove('board', 'shared', Object.keys(result));
           })
