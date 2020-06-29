@@ -251,8 +251,13 @@ TrelloPowerUp.initialize({
             const createdCardIds = [];
 
             const githubPullRequestsFiltered = githubPullRequests
-              .filter((pullRequest) => pullRequest.title.indexOf(boardData.github_user_info.skipPrName) < 0);
-            
+              .filter((pullRequest) => {
+                if((boardData.github_user_info.skipPrName || '').length > 0){
+                  return pullRequest.title.indexOf(boardData.github_user_info.skipPrName) < 0;
+                } else {
+                  return true;
+                }
+              });
 
             const getRequestsMap = githubPullRequestsFiltered.map(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
