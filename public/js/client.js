@@ -263,7 +263,7 @@ TrelloPowerUp.initialize({
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
                 const draftLabel = pullRequest.draft === true ? '[Draft]' : '';
-
+                console.log(pullRequestUrl);
                 
 
                 return window.Trello.post("/card", {
