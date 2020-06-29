@@ -243,6 +243,8 @@ TrelloPowerUp.initialize({
             console.log(githubPullRequests);
             allPrs = {}
             const allExistentPrs = Object.keys(boardData);
+            console.log(allExistentPrs);
+            
 
             /* Get a list of created cards to remove in case of a error on set board shared data
              * currently that error could appear happen you save a lot of prs on your trello's board
