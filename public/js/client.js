@@ -208,11 +208,9 @@ TrelloPowerUp.initialize({
           const allowedKeys = ['ghToken', 'pullRequestUrl', 'listBoardId'];
 
           t.get('board', 'shared').then((result) => {
-            const keysToRemove = Object.keys(result).filter((key) => !allowedKeys.includes(key));
-            console.log(keysToRemove);
-            
+            const { ghToken, pullRequestUrl, listBoardId } = result.github_user_info
 
-            t.remove('board', 'shared', keysToRemove);
+            t.set('board', 'shared', { ghToken, pullRequestUrl, listBoardId });
           })
         }
       },
