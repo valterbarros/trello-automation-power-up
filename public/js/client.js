@@ -201,7 +201,7 @@ TrelloPowerUp.initialize({
   "board-buttons": function(t, opts) {
     return [
       {
-        text: 'hey',
+        text: 'delete prs',
         callback: function(t, opts) {
           t.get('board', 'shared').then((result) => {
             console.log(result);
@@ -234,26 +234,35 @@ TrelloPowerUp.initialize({
           .then((result) => {
             return Promise.all([result.json(), t.get('board', 'shared')])
           })
-          .then(([result, boardData]) => {
-            console.log(result);
+          .then(([githubPullRequests, boardData]) => {
+            console.log(githubPullRequests);
             allPrs = {}
             const allExistentPrs = Object.keys(boardData);
 
-            const getRequestsMap = result.map(pullRequest => {
+            /* Get a list of created cards to remove in case of a error on set board shared data
+             * currently that error could appear after you save a lot of prs on your trello's board
+             * Unhandled rejection Error: PluginData length of 8192 characters exceeded. See:
+             */
+            const createdCardIds = [];
+
+            const getRequestsMap = githubPullRequests.map(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;
 
+              // Check if pr is already tracked on a Trello's card
               if(!allExistentPrs.includes(pullRequestUrl)) {
                 const pullRequestApiUrl = pullRequest.url;
                 const userName = pullRequest.user.login;
-                const prState = pullRequest.state
+                const updatedPr = pullRequest.updated_at;
                 const splittedUrl = pullRequestUrl.split('/');
                 const prNumber = splittedUrl[splittedUrl.length - 1];
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
-                const draftLabel = pullRequest.draft === true ? '[Draft]' : ''
+                const draftLabel = pullRequest.draft === true ? '[Draft]' : '';
+
+                
 
                 return window.Trello.post("/card", {
-                  name: `${cardTitle} ${draftLabel} [${repoName}] [${userName}] #${prNumber}`,
+                  name: `${cardTitle} ${draftLabel} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
                   idList: listBoardId,
                   pos: "top"
                 }).then(card => {
@@ -264,6 +273,8 @@ TrelloPowerUp.initialize({
 
                   return card
                 }).then((card) => {
+                  createdCardIds.push(card.id);
+
                   return window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request api",
                     url: pullRequestApiUrl
@@ -282,6 +293,12 @@ TrelloPowerUp.initialize({
             }).then(() => {
               t.get('board', 'shared').then((data) => {
                 console.log(data);
+              })
+            }).catch(() => {
+              console.log(createdCardIds);
+
+              createdCardIds.forEach((cardId) => {
+                window.Trello.delete(`/cards/${cardId}`);
               })
             })
           })
