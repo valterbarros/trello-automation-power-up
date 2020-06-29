@@ -36,32 +36,24 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
 
 // Like a popup constructor as soon as the pop up rendes on the screen it will be called
 t.render(() => {
-  t.board('id').then((board) => {
-    return window.Trello.get(`/boards/${board.id}/lists`)
-    .then((lists) => {
-      mountSelectOptions(lists, '#js_gh_board_list', 'name', 'id')
+  t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
+    const githubToken = githubUserInfo.ghToken
+
+    t.board('id').then((board) => {
+      return window.Trello.get(`/boards/${board.id}/lists`)
+      .then((lists) => {
+        mountSelectOptions(lists, '#js_gh_board_list', 'name', 'id')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    })
+    .then(() => {
+      document.querySelector('#js_gh_board_list').value = githubUserInfo.listBoardId
     })
     .catch((err) => {
       console.log(err);
     })
-  })
-  .then(() => {
-    document.querySelector('#js_gh_board_list').value = githubUserInfo.listBoardId
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-
-  t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
-    let githubToken = '';
-
-    if(githubUserInfo && githubUserInfo.ghToken) {
-      githubToken = githubUserInfo.ghToken;
-    } else if(document.querySelector('#js_gh_token').value.length) {
-      githubToken = document.querySelector('#js_gh_token').value;
-    } else {
-      return;
-    }
 
     const reposUrl = `https://api.github.com/user/repos?sort=pushed&per_page=20`
 

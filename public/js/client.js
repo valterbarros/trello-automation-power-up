@@ -209,6 +209,8 @@ TrelloPowerUp.initialize({
 
           t.get('board', 'shared').then((result) => {
             const keysToRemove = Object.keys(result).filter((key) => !allowedKeys.includes(key));
+            console.log(keysToRemove);
+            
 
             t.remove('board', 'shared', keysToRemove);
           })
