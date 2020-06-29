@@ -251,7 +251,7 @@ TrelloPowerUp.initialize({
             const createdCardIds = [];
 
             const githubPullRequestsFiltered = githubPullRequests
-              .filter((pullRequest) => !pullRequest.title.indexOf(boardData.github_user_info.skipPrName));
+              .filter((pullRequest) => pullRequest.title.indexOf(boardData.github_user_info.skipPrName) < 0);
             
 
             const getRequestsMap = githubPullRequestsFiltered.map(pullRequest => {
