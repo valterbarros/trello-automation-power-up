@@ -252,6 +252,8 @@ TrelloPowerUp.initialize({
 
             const githubPullRequestsFiltered = githubPullRequests
               .filter((pullRequest) => {
+                console.log((boardData.github_user_info.skipPrName || ''));
+                
                 if((boardData.github_user_info.skipPrName || '').length > 0){
                   return pullRequest.title.indexOf(boardData.github_user_info.skipPrName) < 0;
                 } else {
