@@ -201,10 +201,11 @@ TrelloPowerUp.initialize({
   "board-buttons": function(t, opts) {
     return [
       {
-        text: 'delete prs',
-        callback: function(t, opts) {
+        // Remove all shared board data(pr links) in case of exceed the trello power up storage
+        text: 'Reset data',
+        callback: function(t) {
           t.get('board', 'shared').then((result) => {
-            console.log(result);
+            t.remove('board', 'shared', Object.keys(result));
           })
         }
       },
@@ -217,7 +218,6 @@ TrelloPowerUp.initialize({
         text: "Sync Pull Requests",
         condition: "edit",
         callback: function(t, opts) {
-          // await t.remove('board', 'shared', 'github_user_info')
           let listBoardId = ''
 
           t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
@@ -240,7 +240,7 @@ TrelloPowerUp.initialize({
             const allExistentPrs = Object.keys(boardData);
 
             /* Get a list of created cards to remove in case of a error on set board shared data
-             * currently that error could appear after you save a lot of prs on your trello's board
+             * currently that error could appear happen you save a lot of prs on your trello's board
              * Unhandled rejection Error: PluginData length of 8192 characters exceeded. See:
              */
             const createdCardIds = [];
@@ -294,10 +294,12 @@ TrelloPowerUp.initialize({
               t.get('board', 'shared').then((data) => {
                 console.log(data);
               })
-            }).catch(() => {
-              console.log(createdCardIds);
+            }).catch((err) => {
+              console.log(err);
+              console.log('--- PANIC: starting removing the created cards prs ---');
 
               createdCardIds.forEach((cardId) => {
+                console.log(`removed: ${cardId}`);
                 window.Trello.delete(`/cards/${cardId}`);
               })
             })
