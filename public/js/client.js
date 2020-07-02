@@ -227,17 +227,58 @@ TrelloPowerUp.initialize({
 
           t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
             const githubToken = githubUserInfo.ghToken
-            const pullRequestUrl = githubUserInfo.pullRequestUrl
+            // const pullRequestUrl = githubUserInfo.pullRequestUrl
             listBoardId = githubUserInfo.listBoardId
 
-            return fetch(pullRequestUrl, {
-              headers: {
-                Authorization: `token ${githubToken}`
-              }
-            });
+            return Promise.all(githubUserInfo.pullRequestRepoUrls.map((pullRequestUrl) => {
+                fetch(pullRequestUrl, {
+                  headers: {
+                    Authorization: `token ${githubToken}`
+                  }
+                });
+              })
+            )
           })
           .then((result) => {
-            return Promise.all([result.json(), t.get('board', 'shared')])
+            return result.json()
+          }).then((githubRepoPullRequests) => {
+            console.log(githubRepoPullRequests);
+            
+            /*
+            Pull requests return
+
+            [
+              [
+                {
+                  html_url: 'asdas1dasd',
+                  id: 23123
+                },
+                {
+                  html_url: 'aswdasdasd',
+                  id: 343332
+                }
+              ],
+              [
+                {
+                  html_url: 'asdwasdasd',
+                  id: 44
+                },
+                {
+                  html_url: 'asdasd34asd',
+                  id: 34332
+                }
+              ]
+            ]
+            */
+
+            const flattedRepoPullRequests = githubRepoPullRequests.reduce((acc, githubRepoPullRequests) => {
+              [...acc, ...githubRepoPullRequests]
+            }, [])
+
+            return Promise.all([
+              flattedRepoPullRequests,
+              t.get('board', 'shared')
+            ])
           })
           .then(([githubPullRequests, boardData]) => {
             console.log(githubPullRequests);
