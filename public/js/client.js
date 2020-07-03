@@ -240,6 +240,8 @@ TrelloPowerUp.initialize({
             )
           })
           .then((results) => {
+            console.log(results);
+            
             return results.map((result) => result.json())
           }).then((githubRepoPullRequests) => {
             console.log(githubRepoPullRequests);
