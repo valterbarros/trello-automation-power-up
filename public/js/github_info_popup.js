@@ -23,7 +23,8 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   const ghToken = document.querySelector('#js_gh_token').value
   /* get multiple select options */
   const repoOptions = Array.from(document.querySelectorAll('#js_gh_repository option'))
-  const pullRequestRepoUrls = repoOptions.map((optionElement) => {
+  const selectedOptions = repoOptions.filter(option => option.selected)
+  const pullRequestRepoUrls = selectedOptions.map((optionElement) => {
     return optionElement.value
   })
   /* get multiple select options */
@@ -100,7 +101,7 @@ t.render(() => {
     ghToken.value = personalGithubData.ghToken
     /* set multiple select options*/
     repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
-    repoSelectOptions.map((option) => {
+    repoSelectOptions.forEach((option) => {
       if (personalGithubData.pullRequestRepoUrls.includes(option.value)) {
         option.selected = true
       }
