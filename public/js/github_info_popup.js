@@ -86,6 +86,18 @@ t.render(() => {
     .then(() => {
       // Como selecionar multiplos aqui?
       // document.querySelector('#js_gh_repository').value = githubUserInfo.pullRequestUrl
+      /* set multiple select options*/
+      const repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
+      console.log(repoSelectOptions);
+      
+      repoSelectOptions.forEach((option) => {
+        console.log(option.value);
+        
+        if (githubUserInfo.pullRequestRepoUrls.includes(option.value)) {
+          option.selected = true
+        }
+      })
+      /* set multiple select options*/
     })
   })
   .then((result) => {
@@ -99,19 +111,6 @@ t.render(() => {
   t.get('board', 'shared', 'github_user_info').then((personalGithubData) => {
     console.log(personalGithubData)
     ghToken.value = personalGithubData.ghToken
-    /* set multiple select options*/
-    const repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
-    console.log(repoSelectOptions);
-    
-    repoSelectOptions.forEach((option) => {
-      console.log(option.value);
-      
-      if (personalGithubData.pullRequestRepoUrls.includes(option.value)) {
-        option.selected = true
-      }
-    })
-    /* set multiple select options*/
-
     listBoardId.value = personalGithubData.listBoardId
     skipPrName.value = personalGithubData.skipPrName
   })
