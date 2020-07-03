@@ -100,7 +100,9 @@ t.render(() => {
     console.log(personalGithubData)
     ghToken.value = personalGithubData.ghToken
     /* set multiple select options*/
-    repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
+    const repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
+    console.log(repoSelectOptions);
+    
     repoSelectOptions.forEach((option) => {
       console.log(option.value);
       
