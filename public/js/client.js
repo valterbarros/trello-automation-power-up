@@ -231,7 +231,7 @@ TrelloPowerUp.initialize({
             listBoardId = githubUserInfo.listBoardId
 
             return Promise.all(githubUserInfo.pullRequestRepoUrls.map((pullRequestUrl) => {
-                fetch(pullRequestUrl, {
+                return fetch(pullRequestUrl, {
                   headers: {
                     Authorization: `token ${githubToken}`
                   }
