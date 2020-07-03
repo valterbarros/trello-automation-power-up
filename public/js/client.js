@@ -274,7 +274,7 @@ TrelloPowerUp.initialize({
             */
 
             const flattedRepoPullRequests = githubRepoPullRequests.reduce((acc, githubRepoPullRequests) => {
-              [...acc, ...githubRepoPullRequests]
+              return [...acc, ...githubRepoPullRequests]
             }, [])
 
             return Promise.all([
