@@ -239,8 +239,8 @@ TrelloPowerUp.initialize({
               })
             )
           })
-          .then((result) => {
-            return result.json()
+          .then((results) => {
+            return results.map((result) => result.json())
           }).then((githubRepoPullRequests) => {
             console.log(githubRepoPullRequests);
             
