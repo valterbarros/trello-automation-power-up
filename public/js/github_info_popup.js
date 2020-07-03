@@ -102,6 +102,8 @@ t.render(() => {
     /* set multiple select options*/
     repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
     repoSelectOptions.forEach((option) => {
+      console.log(option.value);
+      
       if (personalGithubData.pullRequestRepoUrls.includes(option.value)) {
         option.selected = true
       }
