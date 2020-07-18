@@ -5,16 +5,8 @@ var PR_ICON = 'https://github.trello.services/images/pull-request.svg?color=fff'
 
 var GITHUB_ICON = 'https://github.trello.services/images/icon.svg?color=42536e';
 
-/* TODO use import */
-window.Trello.authorize({
-  type: "popup",
-  name: "Automatizations Trello Power-Up",
-  scope: {
-    read: "true",
-    write: "true"
-  },
-  expiration: "never"
-});
+import auth from './auth'
+auth()
 
 TrelloPowerUp.initialize({
   "card-badges": function(
