@@ -84,14 +84,10 @@ t.render(() => {
       mountSelectOptions(mapRepo, '#js_gh_repository', 'fullName', 'pullUrl')
     })
     .then(() => {
-      // Como selecionar multiplos aqui?
-      // document.querySelector('#js_gh_repository').value = githubUserInfo.pullRequestUrl
       /* set multiple select options*/
       const repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
-      console.log(repoSelectOptions);
       
       repoSelectOptions.forEach((option) => {
-        console.log(option.value);
         
         if (githubUserInfo.pullRequestRepoUrls.includes(option.value)) {
           option.selected = true
