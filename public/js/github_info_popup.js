@@ -21,12 +21,14 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   event.preventDefault()
 
   const ghToken = document.querySelector('#js_gh_token').value
+
   /* get multiple select options */
   const repoOptions = Array.from(document.querySelectorAll('#js_gh_repository option'))
   const selectedOptions = repoOptions.filter(option => option.selected)
   const pullRequestRepoUrls = selectedOptions.map((optionElement) => {
     return optionElement.value
   })
+
   /* get multiple select options */
   const listBoardId = document.querySelector('#js_gh_board_list')
   const skipPrName = document.querySelector('#js_skip_name')
@@ -84,15 +86,17 @@ t.render(() => {
       mountSelectOptions(mapRepo, '#js_gh_repository', 'fullName', 'pullUrl')
     })
     .then(() => {
+
       /* set multiple select options*/
       const repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
-      
+
       repoSelectOptions.forEach((option) => {
-        
+
         if (githubUserInfo.pullRequestRepoUrls.includes(option.value)) {
           option.selected = true
         }
       })
+
       /* set multiple select options*/
     })
   })

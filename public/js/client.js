@@ -60,16 +60,22 @@ TrelloPowerUp.initialize({
               let approvedCount = 0;
 
               const text = reviews.reduce((accumulator, review /*state user.login*/) => {
+                let currentAccumulator = accumulator;
+
                 let statusLabel = ''
 
-                if(review.state === 'APPROVED') {
+                if (review.state === 'APPROVED') {
                   statusLabel = 'OK'
                   approvedCount += 1
-                } else  {
+                } else {
                   statusLabel = 'NO'
                 }
 
-                return accumulator += `${review.user.login.substring(0,1).toLocaleUpperCase()}: ${statusLabel} `
+                const nameAndStatus = `${review.user.login.substring(0, 1).toLocaleUpperCase()}: ${statusLabel} `
+
+                currentAccumulator += nameAndStatus
+
+                return currentAccumulator
               }, '') || 'No Reviews'
 
               return {
@@ -88,14 +94,14 @@ TrelloPowerUp.initialize({
       console.log(err);
     })
   },
-  "board-buttons": function(t, opts) {
+  "board-buttons": function(/*t, opts*/) {
     return [
       {
         // Remove all shared board data(pr links) in case of exceed the trello power up storage
         text: 'Reset data',
         callback: function(t) {
           const allowedKeys = ['github_user_info'];
-          
+
           t.get('board', 'shared').then((result) => {
             // We don't want remove settings data only saved pr urls
             const keysToRemove = Object.keys(result).filter((key) => !allowedKeys.includes(key));
@@ -112,7 +118,7 @@ TrelloPowerUp.initialize({
         },
         text: "Sync Pull Requests",
         condition: "edit",
-        callback: function(t, opts) {
+        callback: function(t) {
           let listBoardId = ''
 
           t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
@@ -131,35 +137,37 @@ TrelloPowerUp.initialize({
           })
           .then((results) => {
             console.log(results);
-            
-            return Promise.all(results.map((result) => result.json()))
-          }).then((githubRepoPullRequests) => {
-            /*
-            Pull requests return
 
-            [
-              [
-                {
-                  html_url: 'asdas1dasd',
-                  id: 23123
-                },
-                {
-                  html_url: 'aswdasdasd',
-                  id: 343332
-                }
-              ],
-              [
-                {
-                  html_url: 'asdwasdasd',
-                  id: 44
-                },
-                {
-                  html_url: 'asdasd34asd',
-                  id: 34332
-                }
-              ]
-            ]
-            */
+            return Promise.all(results.map((result) => result.json()))
+          })
+          .then((githubRepoPullRequests) => {
+
+            //
+            // Pull requests return
+            //
+            // [
+            // [
+            //     {
+            //       html_url: 'asdas1dasd',
+            //       id: 23123
+            //     },
+            //     {
+            //       html_url: 'aswdasdasd',
+            //       id: 343332
+            //     }
+            // ],
+            // [
+            //     {
+            //       html_url: 'asdwasdasd',
+            //       id: 44
+            //     },
+            //     {
+            //       html_url: 'asdasd34asd',
+            //       id: 34332
+            //     }
+            // ]
+            // ]
+            //
 
             const flattedRepoPullRequests = githubRepoPullRequests.reduce((acc, githubRepoPullRequest) => {
               return [...acc, ...githubRepoPullRequest]
@@ -172,20 +180,20 @@ TrelloPowerUp.initialize({
           })
           .then(([githubPullRequests, boardData]) => {
             console.log(githubPullRequests);
-            allPrs = {}
+            const allPrs = {}
             const allExistentPrs = Object.keys(boardData);
 
-            /* Get a list of created cards to remove in case of a error on set board shared data
-             * currently that error could appear happen you save a lot of prs on your trello's board
-             * Unhandled rejection Error: PluginData length of 8192 characters exceeded. See:
-             */
+            // Get a list of created cards to remove in case of a error on set board shared data
+            // currently that error could appear when you save a lot of prs on your trello's board
+            // Unhandled rejection Error: PluginData length of 8192 characters exceeded. See:
+            //
             const createdCardIds = [];
 
             const githubPullRequestsFiltered = githubPullRequests
               .filter((pullRequest) => {
-                console.log((boardData.github_user_info.skipPrName || ''));
-                
-                if((boardData.github_user_info.skipPrName || '').length > 0){
+                console.log(boardData.github_user_info.skipPrName || '');
+
+                if ((boardData.github_user_info.skipPrName || '').length > 0){
                   return pullRequest.title.indexOf(boardData.github_user_info.skipPrName) < 0;
                 } else {
                   return true;
@@ -196,7 +204,7 @@ TrelloPowerUp.initialize({
               const pullRequestUrl = pullRequest.html_url;
 
               // Check if pr is already tracked on a Trello's card
-              if(!allExistentPrs.includes(pullRequestUrl)) {
+              if (!allExistentPrs.includes(pullRequestUrl)) {
                 const pullRequestApiUrl = pullRequest.url;
                 const userName = pullRequest.user.login;
                 const updatedPr = pullRequest.updated_at;
@@ -204,7 +212,10 @@ TrelloPowerUp.initialize({
                 const prNumber = splittedUrl[splittedUrl.length - 1];
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
-                const draftLabel = pullRequest.draft === true ? '[Draft]' : '';
+                const draftLabel =
+                  pullRequest.draft === true
+                    ? '[Draft]'
+                    : '';
 
                 return window.Trello.post("/card", {
                   name: `${cardTitle} ${draftLabel} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
@@ -217,29 +228,36 @@ TrelloPowerUp.initialize({
                   });
 
                   return card
-                }).then((card) => {
+                })
+                .then((card) => {
                   createdCardIds.push(card.id);
 
                   return window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request api",
                     url: pullRequestApiUrl
                   });
-                }).then(() => {
+                })
+                .then(() => {
                   allPrs[pullRequestUrl] = true
-                }).catch((err) => {
+                })
+                .catch((err) => {
                   console.log(err);
                 })
               }
+
+              return null
             })
 
             Promise.all(getRequestsMap).then(() => {
               console.log(allPrs);
               return t.set('board', 'shared', allPrs);
-            }).then(() => {
+            })
+            .then(() => {
               t.get('board', 'shared').then((data) => {
                 console.log(data);
               })
-            }).catch((err) => {
+            })
+            .catch((err) => {
               console.log(err);
               console.log('--- PANIC: starting removing the created cards prs ---');
 
