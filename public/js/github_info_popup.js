@@ -21,13 +21,21 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   event.preventDefault()
 
   const ghToken = document.querySelector('#js_gh_token').value
-  const pullRequestUrl = document.querySelector('#js_gh_repository')
+
+  /* get multiple select options */
+  const repoOptions = Array.from(document.querySelectorAll('#js_gh_repository option'))
+  const selectedOptions = repoOptions.filter(option => option.selected)
+  const pullRequestRepoUrls = selectedOptions.map((optionElement) => {
+    return optionElement.value
+  })
+
+  /* get multiple select options */
   const listBoardId = document.querySelector('#js_gh_board_list')
   const skipPrName = document.querySelector('#js_skip_name')
 
   return t.set('board', 'shared', 'github_user_info', {
     ghToken,
-    pullRequestUrl: pullRequestUrl.value,
+    pullRequestRepoUrls,
     listBoardId: listBoardId.value,
     skipPrName: skipPrName.value
   })
@@ -78,7 +86,18 @@ t.render(() => {
       mountSelectOptions(mapRepo, '#js_gh_repository', 'fullName', 'pullUrl')
     })
     .then(() => {
-      document.querySelector('#js_gh_repository').value = githubUserInfo.pullRequestUrl
+
+      /* set multiple select options*/
+      const repoSelectOptions = Array.from(document.querySelectorAll('#js_gh_repository option'));
+
+      repoSelectOptions.forEach((option) => {
+
+        if (githubUserInfo.pullRequestRepoUrls.includes(option.value)) {
+          option.selected = true
+        }
+      })
+
+      /* set multiple select options*/
     })
   })
   .then((result) => {
@@ -86,14 +105,12 @@ t.render(() => {
   })
 
   const ghToken = document.querySelector('#js_gh_token')
-  const pullRequestUrl = document.querySelector('#js_gh_repository')
   const listBoardId = document.querySelector('#js_gh_board_list')
   const skipPrName = document.querySelector('#js_skip_name')
 
   t.get('board', 'shared', 'github_user_info').then((personalGithubData) => {
     console.log(personalGithubData)
     ghToken.value = personalGithubData.ghToken
-    pullRequestUrl.value = personalGithubData.pullRequestUrl
     listBoardId.value = personalGithubData.listBoardId
     skipPrName.value = personalGithubData.skipPrName
   })
