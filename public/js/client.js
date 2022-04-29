@@ -195,7 +195,7 @@ TrelloPowerUp.initialize({
 
                 if ((boardData.github_user_info.skipPrName || '').length > 0){
                   return boardData.github_user_info.skipPrName.split(',').find((term) => {
-                    return pullRequest.title.indexOf(term) < 0;
+                    return `${pullRequest.title}${pullRequest.user.login}`.indexOf(term) < 0;
                   })
                 } else {
                   return true;
