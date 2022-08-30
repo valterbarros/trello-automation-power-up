@@ -129,7 +129,7 @@ t.render(() => {
         'VinyLimaZ'
       ].map(name => ({ name }) );
   
-      mountSelectOptions(users, '#js_users_filter', 'name');
+      mountSelectOptions(users, '#js_users_filter', 'name', 'name');
       const opts = Array.from(document.querySelectorAll('#js_users_filter option'));
 
       opts.forEach((option) => {
