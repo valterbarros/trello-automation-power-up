@@ -120,14 +120,16 @@ TrelloPowerUp.initialize({
         condition: "edit",
         callback: function(t) {
           let listBoardId = ''
+          let usersFilter = [];
 
           t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
             const githubToken = githubUserInfo.ghToken
             // const pullRequestUrl = githubUserInfo.pullRequestUrl
             listBoardId = githubUserInfo.listBoardId
+            usersFilter = githubUserInfo.usersFilter
 
             return Promise.all(githubUserInfo.pullRequestRepoUrls.map((pullRequestUrl) => {
-                return fetch(pullRequestUrl, {
+              return fetch(`${pullRequestUrl}?per_page=99`, {
                   headers: {
                     Authorization: `token ${githubToken}`
                   }
@@ -195,12 +197,14 @@ TrelloPowerUp.initialize({
 
                 if ((boardData.github_user_info.skipPrName || '').length > 0){
                   return !boardData.github_user_info.skipPrName.split(',').find((term) => {
-                    return `${pullRequest.title}${pullRequest.user.login}`.indexOf(term) > 0;
-                  })
+                    return pullRequest.title.indexOf(term) > 0;
+                  });
                 } else {
                   return true;
                 }
-              });
+              }).filter((pullRequest) => {      
+                return usersFilter.includes(pullRequest.user.login)
+              })
 
             const getRequestsMap = githubPullRequestsFiltered.map(pullRequest => {
               const pullRequestUrl = pullRequest.html_url;

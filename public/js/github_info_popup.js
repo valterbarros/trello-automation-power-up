@@ -17,6 +17,15 @@ function mountSelectOptions(collection, selectSelector, displayKey, valueKey) {
   })
 }
 
+function getSelectMultiple(query) {
+  const opts = Array.from(document.querySelectorAll(`${query} option`))
+  const selectedOptions = opts.filter(option => option.selected)
+  const values = selectedOptions.map((optionElement) => {
+    return optionElement.value
+  })
+  return values
+}
+
 document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   event.preventDefault()
 
@@ -28,8 +37,12 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
   const pullRequestRepoUrls = selectedOptions.map((optionElement) => {
     return optionElement.value
   })
+  /* get multiple select options */
 
   /* get multiple select options */
+  const usersFilter = getSelectMultiple('#js_users_filter')
+  /* get multiple select options */
+
   const listBoardId = document.querySelector('#js_gh_board_list')
   const skipPrName = document.querySelector('#js_skip_name')
 
@@ -37,7 +50,8 @@ document.querySelector('#jsghselection').addEventListener('submit', (event) => {
     ghToken,
     pullRequestRepoUrls,
     listBoardId: listBoardId.value,
-    skipPrName: skipPrName.value
+    skipPrName: skipPrName.value,
+    usersFilter
   })
   .then(() => {
     t.closePopup()
@@ -96,8 +110,33 @@ t.render(() => {
           option.selected = true
         }
       })
-
       /* set multiple select options*/
+    })
+    .then(() => {
+      const users = [
+        'valterbarros',
+        'franciscoemanuel',
+        'antnathan',
+        'victordantasmcz',
+        'galvclicksign',
+        'eaebob',
+        'vsanrocha',
+        'kahpereira',
+        'Hai-San',
+        'obssousa',
+        'ViniciusTOG',
+        'edumudu',
+        'VinyLimaZ'
+      ].map(name => ({ name }) );
+  
+      mountSelectOptions(users, '#js_users_filter', 'name');
+      const opts = Array.from(document.querySelectorAll('#js_users_filter option'));
+
+      opts.forEach((option) => {
+        if (githubUserInfo.usersFilter.includes(option.value)) {
+          option.selected = true
+        }
+      })
     })
   })
   .then((result) => {
