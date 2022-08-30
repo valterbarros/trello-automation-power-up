@@ -60,6 +60,12 @@ TrelloPowerUp.initialize({
               let approvedCount = 0;
               const lastTwo = reviews.slice(reviews.length - 2);
 
+              reviews.forEach((review) => {
+                if (review.state === 'APPROVED') {
+                  approvedCount += 1
+                }
+              });
+
               const text = lastTwo.reduce((accumulator, review /*state user.login*/) => {
                 let currentAccumulator = accumulator;
 
@@ -67,7 +73,8 @@ TrelloPowerUp.initialize({
 
                 if (review.state === 'APPROVED') {
                   statusLabel = 'OK'
-                  approvedCount += 1
+                } else if (review.state === 'COMMENTED') {
+                  statusLabel = 'CO'
                 } else {
                   statusLabel = 'NO'
                 }
