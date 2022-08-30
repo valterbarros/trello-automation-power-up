@@ -163,13 +163,13 @@ t.render(() => {
       ].map(name => ({ name }) )
 
       mountSelectOptions(frontendUsers, '#js_users_filter', 'name', 'name');
-      const frontOpts = document.querySelector('#js_users_filter option');
+      const frontOpts = document.querySelectorAll('#js_users_filter option');
       const wrapper = document.createElement('optgroup');
       wrapper.label = 'Frontend Developer';
       wrapper.append(frontOpts);
 
       mountSelectOptions(backendUsers, '#js_users_filter', 'name', 'name');
-      const backendOpts = document.querySelector('#js_users_filter option');
+      const backendOpts = document.querySelectorAll('#js_users_filter option');
       const backWrapper = document.createElement('optgroup');
       backWrapper.label = 'Backend Developer';
       backWrapper.append(backendOpts);
