@@ -151,7 +151,7 @@ t.render(() => {
         'obssousa',
         'ViniciusTOG',
         'edumudu',
-      ]
+      ].map(name => ({ name }) )
 
       const backendUsers = [
         'VinyLimaZ',
@@ -160,7 +160,7 @@ t.render(() => {
         'fabiodallazen',
         'deyvin',
         'tofoli'
-      ]
+      ].map(name => ({ name }) )
 
       mountSelectOptions(frontendUsers, '#js_users_filter', 'name', 'name');
       const frontOpts = document.querySelector('#js_users_filter option');
