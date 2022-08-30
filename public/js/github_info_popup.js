@@ -159,7 +159,8 @@ t.render(() => {
         'eduardoazevedo3',
         'fabiodallazen',
         'deyvin',
-        'tofoli'
+        'tofoli',
+        'vitorbribas'
       ].map(name => ({ name }) )
 
       mountSelectOptions(frontendUsers, '#js_users_filter', 'name', 'name');

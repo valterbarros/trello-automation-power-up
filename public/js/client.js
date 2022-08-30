@@ -58,8 +58,9 @@ TrelloPowerUp.initialize({
             .then((reviews) => {
               // console.log(pullRequest);
               let approvedCount = 0;
+              const lastTwo = reviews.slice(reviews.length - 2);
 
-              const text = reviews.reduce((accumulator, review /*state user.login*/) => {
+              const text = lastTwo.reduce((accumulator, review /*state user.login*/) => {
                 let currentAccumulator = accumulator;
 
                 let statusLabel = ''
