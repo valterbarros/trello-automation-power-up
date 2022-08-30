@@ -174,6 +174,10 @@ t.render(() => {
       backWrapper.label = 'Backend Developer';
       backWrapper.append(backendOpts);
 
+      document.querySelector('#js_users_filter').innerHTML = '';
+      document.querySelector('#js_users_filter').append(wrapper);
+      document.querySelector('#js_users_filter').append(backWrapper);
+
       const opts = Array.from(document.querySelectorAll('#js_users_filter option'));
 
       opts.forEach((option) => {
