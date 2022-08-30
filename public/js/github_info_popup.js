@@ -113,7 +113,32 @@ t.render(() => {
       /* set multiple select options*/
     })
     .then(() => {
-      const users = [
+      // const users = {
+      //   frontend: [
+      //     'valterbarros',
+      //     'franciscoemanuel',
+      //     'antnathan',
+      //     'victordantasmcz',
+      //     'galvclicksign',
+      //     'eaebob',
+      //     'vsanrocha',
+      //     'kahpereira',
+      //     'Hai-San',
+      //     'obssousa',
+      //     'ViniciusTOG',
+      //     'edumudu',
+      //   ],
+      //   backend: [
+      //     'VinyLimaZ',
+      //     'lsantosc',
+      //     'eduardoazevedo3',
+      //     'fabiodallazen',
+      //     'deyvin',
+      //     'tofoli'
+      //   ]
+      // }
+
+      const frontendUsers = [
         'valterbarros',
         'franciscoemanuel',
         'antnathan',
@@ -126,10 +151,29 @@ t.render(() => {
         'obssousa',
         'ViniciusTOG',
         'edumudu',
-        'VinyLimaZ'
-      ].map(name => ({ name }) );
-  
-      mountSelectOptions(users, '#js_users_filter', 'name', 'name');
+      ]
+
+      const backendUsers = [
+        'VinyLimaZ',
+        'lsantosc',
+        'eduardoazevedo3',
+        'fabiodallazen',
+        'deyvin',
+        'tofoli'
+      ]
+
+      mountSelectOptions(frontendUsers, '#js_users_filter', 'name', 'name');
+      const frontOpts = document.querySelector('#js_users_filter option');
+      const wrapper = document.createElement('optgroup');
+      wrapper.label = 'Frontend Developer';
+      wrapper.append(frontOpts);
+
+      mountSelectOptions(backendUsers, '#js_users_filter', 'name', 'name');
+      const backendOpts = document.querySelector('#js_users_filter option');
+      const backWrapper = document.createElement('optgroup');
+      backWrapper.label = 'Backend Developer';
+      backWrapper.append(backendOpts);
+
       const opts = Array.from(document.querySelectorAll('#js_users_filter option'));
 
       opts.forEach((option) => {
