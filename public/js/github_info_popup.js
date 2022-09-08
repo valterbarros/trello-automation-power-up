@@ -151,6 +151,7 @@ t.render(() => {
         'obssousa',
         'ViniciusTOG',
         'edumudu',
+        'laerciodev'
       ].map(name => ({ name }) )
 
       const backendUsers = [
