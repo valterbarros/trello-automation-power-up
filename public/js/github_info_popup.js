@@ -145,17 +145,14 @@ t.render(() => {
         'victordantasmcz',
         'galvclicksign',
         'eaebob',
-        'vsanrocha',
-        'kahpereira',
         'Hai-San',
-        'obssousa',
         'ViniciusTOG',
         'edumudu',
         'laerciodev',
-        'mersonff',
         'elianbatista',
         'giovanibl',
-        'lucaspagliari'
+        'lucaspagliari',
+        'djosino'
       ].map(name => ({ name }) )
 
       const backendUsers = [
