@@ -40,7 +40,7 @@ TrelloPowerUp.initialize({
 
               if (pullRequest.state === 'open') color = 'green';
               if (pullRequest.state === 'closed') color = 'purple';
-              if (pullRequest.draft) color = 'gray';
+              if (pullRequest.draft) color = 'blue';
 
               return {
                 text: isDraft ? 'draft' : pullRequest.state,
@@ -232,13 +232,9 @@ TrelloPowerUp.initialize({
                 const prNumber = splittedUrl[splittedUrl.length - 1];
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
-                const draftLabel =
-                  pullRequest.draft === true
-                    ? '[Draft]'
-                    : '';
 
                 return window.Trello.post("/card", {
-                  name: `${cardTitle} ${draftLabel} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
+                  name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
                   idList: listBoardId,
                   pos: "top"
                 }).then(card => {
