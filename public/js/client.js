@@ -40,7 +40,7 @@ TrelloPowerUp.initialize({
 
               if (pullRequest.state === 'open') color = 'green';
               if (pullRequest.state === 'closed') color = 'purple';
-              if (pullRequest.draft) color = 'grey';
+              if (pullRequest.draft) color = 'gray';
 
               return {
                 text: isDraft ? 'draft' : pullRequest.state,
