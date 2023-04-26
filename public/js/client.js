@@ -34,13 +34,13 @@ TrelloPowerUp.initialize({
             .then((pullRequest) => {
               // console.log(pullRequest);
 
-              const isDraft = pullRequestUrl.draft;
+              const isDraft = pullRequest.draft;
 
               let color;
 
               if (pullRequest.state === 'open') color = 'green';
               if (pullRequest.state === 'closed') color = 'purple';
-              if (pullRequestUrl.draft) color = 'purple';
+              if (pullRequest.draft) color = 'purple';
 
               return {
                 text: isDraft ? 'draft' : pullRequest.state,
