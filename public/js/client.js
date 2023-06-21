@@ -81,6 +81,8 @@ TrelloPowerUp.initialize({
                   statusLabel = 'OK'
                 } else if (review.state === 'COMMENTED') {
                   statusLabel = 'CO'
+                } else if (review.state === 'DISMISSED') {
+                  statusLabel = 'DI'
                 } else {
                   statusLabel = 'NO'
                 }
