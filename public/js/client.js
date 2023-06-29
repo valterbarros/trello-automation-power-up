@@ -6,7 +6,13 @@ var PR_ICON = 'https://github.trello.services/images/pull-request.svg?color=fff'
 var GITHUB_ICON = 'https://github.trello.services/images/icon.svg?color=42536e';
 
 import auth from './auth'
-auth()
+auth();
+
+const getLabels = async (listBoardId, query) => {
+  const labels = await Trello.get(`/boards/${listBoardId}/labels`) || [];
+
+  return labels.find((l) => l.name?.toLowerCase() === query?.toLowerCase())?.id;
+}
 
 TrelloPowerUp.initialize({
   "card-badges": function(
@@ -222,7 +228,7 @@ TrelloPowerUp.initialize({
                 return usersFilter.includes(pullRequest.user.login)
               })
 
-            const getRequestsMap = githubPullRequestsFiltered.map(pullRequest => {
+            const getRequestsMap = githubPullRequestsFiltered.map(async (pullRequest) => {
               const pullRequestUrl = pullRequest.html_url;
 
               // Check if pr is already tracked on a Trello's card
@@ -235,11 +241,15 @@ TrelloPowerUp.initialize({
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
 
+                const userLabelId = await getLabels(listBoardId, userName);
+                const repoLabelId = await getLabels(listBoardId, repoName);
+
                 return window.Trello.post("/card", {
                   name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
                   idList: listBoardId,
+                  idLabels: [userLabelId, repoLabelId].join(','),
                   pos: "top"
-                }).then(card => {
+                }).then(async (card) => {
                   window.Trello.post(`/card/${card.id}/attachments`, {
                     name: "github pull request",
                     url: pullRequestUrl
