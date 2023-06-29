@@ -76,11 +76,12 @@ TrelloPowerUp.initialize({
             })
             .then((result) => result.json())
             .then((reviews) => {
-              // console.log(pullRequest);
+              const MY_USER = 'valterbarros';
+
               let approvedCount = 0;
               // maybe receive my review from a text field on frontend
-              const myReview = reviews.find((r) => r.user.login === 'valterbarros');
-              const lastTwo = myReview ? [...reviews.slice(reviews.length - 1), myReview] : reviews.slice(reviews.length - 2);
+              const myReview = reviews.find((r) => r.user.login === MY_USER);
+              const lastTwo = myReview ? [...new Set([...reviews.slice(reviews.length - 1), myReview])] : reviews.slice(reviews.length - 2);
 
               reviews.forEach((review) => {
                 if (review.state === 'APPROVED') {
@@ -103,7 +104,9 @@ TrelloPowerUp.initialize({
                   statusLabel = 'NO'
                 }
 
-                const nameAndStatus = `${review.user.login.substring(0, 1).toLocaleUpperCase()}: ${statusLabel} `
+                const prefix = review.user.login === MY_USER ? 'ME' : review.user.login.substring(0, 1).toLocaleUpperCase();
+
+                const nameAndStatus = `${prefix}: ${statusLabel} `
 
                 currentAccumulator += nameAndStatus
 
