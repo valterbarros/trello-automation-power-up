@@ -241,7 +241,7 @@ TrelloPowerUp.initialize({
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
 
-                const { id: boardId } = t.board('id');
+                const { id: boardId } = await t.board('id');
 
                 const userLabelId = await getLabelId(boardId, userName);
                 const repoLabelId = await getLabelId(boardId, repoName);
