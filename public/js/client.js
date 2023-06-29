@@ -253,13 +253,14 @@ TrelloPowerUp.initialize({
 
                 const userLabelId = await getLabelId(boardId, userName);
                 const repoLabelId = await getLabelId(boardId, repoName);
+                const labelsList = [userLabelId, repoLabelId].filter(Boolean).join(',');
 
                 console.log(userLabelId, repoLabelId, boardId, userName, repoName)
 
                 return window.Trello.post("/card", {
                   name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
                   idList: listBoardId,
-                  ...((userLabelId || repoLabelId) && { idLabels: [userLabelId, repoLabelId].join(',') }),
+                  ...((userLabelId || repoLabelId) && { idLabels: labelsList }),
                   pos: "top"
                 }).then(async (card) => {
                   window.Trello.post(`/card/${card.id}/attachments`, {
