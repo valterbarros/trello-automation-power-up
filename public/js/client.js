@@ -18,7 +18,7 @@ const getLabelId = async (boardId, query) => {
   console.log(labels)
 
   return labels
-    .map((l) => ({ name: l.name.replace(/[^a-z]+/gi, '').toLowerCase(), id: l.id }))
+    .map((l) => ({ name: l.name.replace(/^[^a-z]+/gi, '').toLowerCase(), id: l.id }))
     .find(({ name }) => name.includes(query.toLowerCase()))?.id;
 }
 
