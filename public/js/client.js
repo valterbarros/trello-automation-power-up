@@ -15,6 +15,8 @@ const getLabelId = async (boardId, query) => {
 
   labelsCache = labels;
 
+  console.log(labels)
+
   return labels
     .map((l) => l.name.replace(/[^a-z]+/gi, '').toLowerCase())
     .find((lName) => lName.includes(query.toLowerCase()))?.id;
