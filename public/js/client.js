@@ -8,8 +8,10 @@ var GITHUB_ICON = 'https://github.trello.services/images/icon.svg?color=42536e';
 import auth from './auth'
 auth();
 
-const getLabelId = async (listBoardId, query) => {
-  const labels = await Trello.get(`/boards/${listBoardId}/labels`) || [];
+const labelsCache = [];
+
+const getLabelId = async (boardId, query) => {
+  const labels = labelsCache.length ? labelsCache : (await Trello.get(`/boards/${boardId}/labels`) || []);
 
   return labels.find((l) => l.name?.toLowerCase() === query?.toLowerCase())?.id;
 }
@@ -249,7 +251,7 @@ TrelloPowerUp.initialize({
                 return window.Trello.post("/card", {
                   name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
                   idList: listBoardId,
-                  idLabels: [userLabelId, repoLabelId].join(','),
+                  ...(userLabelId && repoLabelId && { idLabels: [userLabelId, repoLabelId].join(',') }),
                   pos: "top"
                 }).then(async (card) => {
                   window.Trello.post(`/card/${card.id}/attachments`, {
