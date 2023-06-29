@@ -15,7 +15,9 @@ const getLabelId = async (boardId, query) => {
 
   labelsCache = labels;
 
-  return labels.find((l) => l.name?.toLowerCase().includes(query?.toLowerCase()))?.id;
+  return labels
+    .map((l) => l.name.replace(/[^a-z]+/gi, '').toLowerCase())
+    .find((lName) => lName.includes(query.toLowerCase()))?.id;
 }
 
 TrelloPowerUp.initialize({
