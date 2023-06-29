@@ -81,7 +81,9 @@ TrelloPowerUp.initialize({
               let approvedCount = 0;
               // maybe receive my review from a text field on frontend
               const myReview = reviews.find((r) => r.user.login === MY_USER);
-              const lastTwo = myReview ? [...new Set([...reviews.slice(reviews.length - 1), myReview])] : reviews.slice(reviews.length - 2);
+              const lastTwoNotMyself = reviews.reverse().find((r) => r.user.login !== MY_USER);
+
+              const lastTwo = myReview ? [lastNotMyself, myReview] : reviews.slice(reviews.length - 2);
 
               reviews.forEach((review) => {
                 if (review.state === 'APPROVED') {
