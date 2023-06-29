@@ -18,8 +18,8 @@ const getLabelId = async (boardId, query) => {
   console.log(labels)
 
   return labels
-    .map((l) => l.name.replace(/[^a-z]+/gi, '').toLowerCase())
-    .find((lName) => lName.includes(query.toLowerCase()))?.id;
+    .map((l) => ({ name: l.name.replace(/[^a-z]+/gi, '').toLowerCase(), id: l.id }))
+    .find(({ name }) => name.includes(query.toLowerCase()))?.id;
 }
 
 TrelloPowerUp.initialize({
