@@ -250,6 +250,8 @@ TrelloPowerUp.initialize({
                 const userLabelId = await getLabelId(boardId, userName);
                 const repoLabelId = await getLabelId(boardId, repoName);
 
+                console.log(userLabelId, repoLabelId, boardId, userName, repoName)
+
                 return window.Trello.post("/card", {
                   name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
                   idList: listBoardId,
