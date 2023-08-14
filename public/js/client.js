@@ -91,7 +91,7 @@ TrelloPowerUp.initialize({
                 }
               });
 
-              const text = lastTwo.reduce((accumulator, review /*state user.login*/) => {
+              const text = lastTwo.filter(Boolean).reduce((accumulator, review /*state user.login*/) => {
                 let currentAccumulator = accumulator;
 
                 let statusLabel = ''
