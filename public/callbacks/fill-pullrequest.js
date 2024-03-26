@@ -78,13 +78,13 @@ export const fillPullrequestCallback = function(t) {
 
     return Promise.all([
       flattedRepoPullRequests,
-      t.get('board', 'shared', 'github_user_info')
+      t.get('board', 'shared', 'all_prs')
     ])
   })
-  .then(([githubPullRequests, githubUserInfo]) => {
-    console.log(githubPullRequests, githubUserInfo);
-    const allPrs = {}
-    const allExistentPrs = Object.keys(githubUserInfo);
+  .then(([githubPullRequests, allExistentPrs]) => {
+    console.log(githubPullRequests, allExistentPrs);
+    const allPrs = {};
+    const allExistentPrsKeys = Object.keys(allExistentPrs);
 
     // Get a list of created cards to remove in case of a error on set board shared data
     // currently that error could appear when you save a lot of prs on your trello's board
@@ -109,7 +109,7 @@ export const fillPullrequestCallback = function(t) {
       const pullRequestUrl = pullRequest.html_url;
 
       // Check if pr is already tracked on a Trello's card
-      if (!allExistentPrs.includes(pullRequestUrl)) {
+      if (!allExistentPrsKeys.includes(pullRequestUrl)) {
         const pullRequestApiUrl = pullRequest.url;
         const userName = pullRequest.user.login;
         const updatedPr = pullRequest.updated_at;
@@ -167,7 +167,7 @@ export const fillPullrequestCallback = function(t) {
 
     Promise.all(getRequestsMap).then(() => {
       console.log(allPrs);
-      return t.set('board', 'shared', allPrs);
+      return t.set('board', 'shared', 'all_prs', allPrs);
     })
     .then(() => {
       t.get('board', 'shared').then((data) => {
