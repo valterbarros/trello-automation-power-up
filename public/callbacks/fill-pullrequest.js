@@ -83,7 +83,7 @@ export const fillPullrequestCallback = function(t) {
   })
   .then(([githubPullRequests, { github_user_info: githubUserInfo, all_prs: allExistentPrs }]) => {
     console.log(githubPullRequests, allExistentPrs);
-    const allPrs = allExistentPrsKeys || {};
+    const allPrs = allExistentPrs || {};
     const allExistentPrsKeys = Object.keys(allExistentPrs || {});
 
     // Get a list of created cards to remove in case of a error on set board shared data
