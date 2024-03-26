@@ -81,7 +81,7 @@ export const fillPullrequestCallback = function(t) {
       t.get('board', 'shared', 'all_prs')
     ])
   })
-  .then(([githubPullRequests, allExistentPrs]) => {
+  .then(([githubPullRequests, { github_user_info: githubUserInfo, all_prs: allExistentPrs }]) => {
     console.log(githubPullRequests, allExistentPrs);
     const allPrs = {};
     const allExistentPrsKeys = Object.keys(allExistentPrs || {});
