@@ -12,12 +12,23 @@
       <a id="readme" href="https://glitch.com/edit/#!/trello-power-up-skeleton?path=README.md">README</a>.
     </p>
     <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
     ></script>
     <script src="https://p.trellocdn.com/power-up.min.js"></script>
     <script src="https://trello.com/1/client.js?key=4a4f3be9aaba4f56cfa5e357258f1c2e"></script>
     <script src="../public/js/client.js"></script>
+
+    <!-- For testes purpose only -->
+    <button id="js-fill-pullrequest">Fill pull request test</button>
+    <script type="module">
+      import { fillPullrequestCallback } from '../public/callbacks/fill-pullrequest.js';
+      import { trelloObj } from '../trello-overrides.js';
+
+      document.getElementById('js-fill-pullrequest').onclick = function() {
+        fillPullrequestCallback(trelloObj);
+      };
+    </script>
   </body>
 </html>
