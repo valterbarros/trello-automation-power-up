@@ -257,7 +257,9 @@ TrelloPowerUp.initialize({
                 const prNumber = splittedUrl[splittedUrl.length - 1];
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
-                const additions = pullRequest.additions;
+
+                const res = await fetch(pullRequestApiUrl);
+                const { additions } = await res.json(); 
 
                 const { id: boardId } = await t.board('id');
 
