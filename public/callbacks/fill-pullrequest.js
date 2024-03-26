@@ -84,7 +84,7 @@ export const fillPullrequestCallback = function(t) {
   .then(([githubPullRequests, allExistentPrs]) => {
     console.log(githubPullRequests, allExistentPrs);
     const allPrs = {};
-    const allExistentPrsKeys = Object.keys(allExistentPrs);
+    const allExistentPrsKeys = Object.keys(allExistentPrs || {});
 
     // Get a list of created cards to remove in case of a error on set board shared data
     // currently that error could appear when you save a lot of prs on your trello's board
