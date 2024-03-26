@@ -116,7 +116,8 @@ export const fillPullrequestCallback = function(t) {
         const splittedUrl = pullRequestUrl.split('/');
         const prNumber = splittedUrl[splittedUrl.length - 1];
         const cardTitle = pullRequest.title;
-        const repoName = pullRequest.base.repo.name
+        const repoName = pullRequest.base.repo.name;
+        const hasReadtyToReview = pullRequest.labels.find(({ name }) => name.includes('review'));
 
         const { additions } = await gitHubRequest(pullRequestApiUrl, githubUserInfo.ghToken);
         
@@ -125,14 +126,18 @@ export const fillPullrequestCallback = function(t) {
         const userLabelId = await getLabelId(boardId, userName);
         const repoLabelId = await getLabelId(boardId, repoName);
         const readyToReviewLabelId = await getLabelId(boardId, 'ready to review');
-        const labelsList = [userLabelId, repoLabelId, readyToReviewLabelId].filter(Boolean).join(',');
+        const idLabels = [userLabelId, repoLabelId].filter(Boolean);
 
-        return window.Trello.post("/card", {
+        if (hasReadtyToReview && readyToReviewLabelId) idLabels.push(readyToReviewLabelId);
+
+        const createCardParams = {
           name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${formatDate(updatedPr)}] [a: ${additions}]`,
           idList: listBoardId,
-          ...((userLabelId || repoLabelId || readyToReviewLabelId) && { idLabels: labelsList }),
-          pos: "top"
-        }).then(async (card) => {
+          ...( idLabels.length && { idLabels: idLabels.join(',') }),
+          pos: "top",
+        };
+
+        return window.Trello.post("/card", createCardParams).then(async (card) => {
           window.Trello.post(`/card/${card.id}/attachments`, {
             name: "github pull request",
             url: pullRequestUrl
