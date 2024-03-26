@@ -8,6 +8,8 @@ var GITHUB_ICON = 'https://github.trello.services/images/icon.svg?color=42536e';
 import auth from './auth'
 auth();
 
+const formatDate = (date) => new Date(date).toLocaleString();
+
 let labelsCache = [];
 
 const getLabelId = async (boardId, query) => {
@@ -255,6 +257,7 @@ TrelloPowerUp.initialize({
                 const prNumber = splittedUrl[splittedUrl.length - 1];
                 const cardTitle = pullRequest.title;
                 const repoName = pullRequest.base.repo.name
+                const additions = pullRequest.additions;
 
                 const { id: boardId } = await t.board('id');
 
@@ -265,7 +268,7 @@ TrelloPowerUp.initialize({
                 console.log(userLabelId, repoLabelId, boardId, userName, repoName)
 
                 return window.Trello.post("/card", {
-                  name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${updatedPr}]`,
+                  name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${formatDate(updatedPr)}] [a: ${additions}]`,
                   idList: listBoardId,
                   ...((userLabelId || repoLabelId) && { idLabels: labelsList }),
                   pos: "top"
