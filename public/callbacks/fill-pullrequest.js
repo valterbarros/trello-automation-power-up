@@ -82,7 +82,7 @@ export const fillPullrequestCallback = function(t) {
     ])
   })
   .then(([githubPullRequests, githubUserInfo]) => {
-    console.log(githubPullRequests);
+    console.log(githubPullRequests, githubUserInfo);
     const allPrs = {}
     const allExistentPrs = Object.keys(githubUserInfo);
 
