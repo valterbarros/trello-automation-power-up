@@ -259,7 +259,9 @@ TrelloPowerUp.initialize({
                 const repoName = pullRequest.base.repo.name
 
                 const res = await fetch(pullRequestApiUrl);
-                const { additions } = await res.json(); 
+                const data = await res.json(); 
+                console.log('fetch api url', data);
+                const { additions } = data;
 
                 const { id: boardId } = await t.board('id');
 
