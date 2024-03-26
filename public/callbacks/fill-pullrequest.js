@@ -78,7 +78,7 @@ export const fillPullrequestCallback = function(t) {
 
     return Promise.all([
       flattedRepoPullRequests,
-      t.get('board', 'shared', 'all_prs')
+      t.get('board', 'shared')
     ])
   })
   .then(([githubPullRequests, { github_user_info: githubUserInfo, all_prs: allExistentPrs }]) => {
