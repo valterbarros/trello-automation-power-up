@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tests</title>
+</head>
+<body>
+  <p>For testes purpose only:</p>
+  <p>
+    Test trello functions outside of the trello environment
+  </p>
+
+  <button id="js-fill-pullrequest">Fill pull request test</button>
+  <script type="module">
+    import { fillPullrequestCallback } from '../public/callbacks/fill-pullrequest.js';
+    import { trelloObj } from './trello-overrides.js';
+
+    document.getElementById('js-fill-pullrequest').onclick = function() {
+      fillPullrequestCallback(trelloObj);
+    };
+  </script>
+</body>
+</html>
