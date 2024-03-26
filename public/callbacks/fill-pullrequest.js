@@ -118,17 +118,18 @@ export const fillPullrequestCallback = function(t) {
         const cardTitle = pullRequest.title;
         const repoName = pullRequest.base.repo.name;
         const hasReadtyToReview = pullRequest.labels.find(({ name }) => name.includes('review'));
+        const isDraft = pullRequest.draft;
 
         const { additions } = await gitHubRequest(pullRequestApiUrl, githubUserInfo.ghToken);
         
         const { id: boardId } = await t.board('id');
-        
+
         const userLabelId = await getLabelId(boardId, userName);
         const repoLabelId = await getLabelId(boardId, repoName);
         const readyToReviewLabelId = await getLabelId(boardId, 'ready to review');
         const idLabels = [userLabelId, repoLabelId].filter(Boolean);
 
-        if (hasReadtyToReview && readyToReviewLabelId) idLabels.push(readyToReviewLabelId);
+        if (hasReadtyToReview && readyToReviewLabelId && isDraft) idLabels.push(readyToReviewLabelId);
 
         const createCardParams = {
           name: `${cardTitle} [${repoName}] [${userName}] #${prNumber} [${formatDate(updatedPr)}] [a: ${additions}]`,

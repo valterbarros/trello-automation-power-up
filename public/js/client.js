@@ -24,6 +24,7 @@ TrelloPowerUp.initialize({
       const githubToken = githubUserInfo.ghToken
 
       return [
+        // Shows if the pull request is draft
         {
           dynamic: function() {
             return fetch(apiAttachment.url, {
@@ -52,6 +53,7 @@ TrelloPowerUp.initialize({
             })
           }
         },
+        // Shows reviwers status limited to two
         {
           dynamic: function() {
             const getPrReviews = `${apiAttachment.url}/reviews`;
