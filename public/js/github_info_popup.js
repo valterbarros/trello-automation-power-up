@@ -141,6 +141,7 @@ t.render(() => {
       const frontendUsers = [
         'valterbarros',
         'franciscoemanuel',
+        'erick-ishimine',
         'antnathan',
         'victordantasmcz',
         'eaebob',
