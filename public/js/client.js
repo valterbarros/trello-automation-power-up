@@ -14,6 +14,7 @@ TrelloPowerUp.initialize({
     t,
     options /* Returns some data from current card like id, etc*/
   ) {
+    console.log(options.attachments);
     const apiAttachment = options.attachments.find((attachment) => attachment.url.match(/api.github.com/u))
 
     if (!apiAttachment) {
