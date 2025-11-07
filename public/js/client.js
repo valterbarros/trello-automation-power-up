@@ -22,6 +22,8 @@ TrelloPowerUp.initialize({
 
     const apiAttachment = ghUrl.replace('https://github.com', 'https://api.github.com/repos').replace('pull', 'pulls');
 
+    console.log('apiAttachment', apiAttachment);
+
     return t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
       const githubToken = githubUserInfo.ghToken
 
