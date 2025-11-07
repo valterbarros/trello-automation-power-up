@@ -21,7 +21,7 @@ TrelloPowerUp.initialize({
 
     if (!ghUrl) return [];
 
-    const apiAttachment = ghUrl.replace('https://github.com', 'https://api.github.com/repos').replace('pull', 'pulls');
+    const apiAttachment = ghUrl.url.replace('https://github.com', 'https://api.github.com/repos').replace('pull', 'pulls');
 
     console.log('apiAttachment', apiAttachment);
 
@@ -32,7 +32,7 @@ TrelloPowerUp.initialize({
         // Shows if the pull request is draft
         {
           dynamic: function() {
-            return fetch(apiAttachment.url, {
+            return fetch(apiAttachment, {
               headers: {
                 Authorization: `token ${githubToken}`
               }
@@ -61,7 +61,7 @@ TrelloPowerUp.initialize({
         // Shows reviwers status limited to two
         {
           dynamic: function() {
-            const getPrReviews = `${apiAttachment.url}/reviews`;
+            const getPrReviews = `${apiAttachment}/reviews`;
 
             return fetch(getPrReviews, {
               headers: {
