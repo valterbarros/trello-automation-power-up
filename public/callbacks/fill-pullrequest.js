@@ -146,14 +146,6 @@ export const fillPullrequestCallback = function(t) {
 
           return card
         })
-        .then((card) => {
-          createdCardIds.push(card.id);
-
-          return window.Trello.post(`/card/${card.id}/attachments`, {
-            name: "github pull request api",
-            url: pullRequestApiUrl
-          });
-        })
         .then(() => {
           allPrs[pullRequestUrl] = true
         })
