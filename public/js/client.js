@@ -14,12 +14,13 @@ TrelloPowerUp.initialize({
     t,
     options /* Returns some data from current card like id, etc*/
   ) {
-    console.log(options.attachments);
-    const apiAttachment = options.attachments.find((attachment) => attachment.url.match(/api.github.com/u))
+    // example: https://api.github.com/repos/clicksign/nova-widget/pulls/602
+    // https://github.com/clicksign/nova-widget/pull/602
+    const ghUrl = options.attachments.find((attachment) => attachment.url.match(/github.com/u));
 
-    if (!apiAttachment) {
-      return []
-    }
+    if (!ghUrl) return [];
+
+    const apiAttachment = ghUrl.replace('https://github.com', 'https://api.github.com/repos').replace('pull', 'pulls');
 
     return t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
       const githubToken = githubUserInfo.ghToken
