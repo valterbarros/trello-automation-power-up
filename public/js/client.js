@@ -17,6 +17,7 @@ TrelloPowerUp.initialize({
     // example: https://api.github.com/repos/clicksign/nova-widget/pulls/602
     // https://github.com/clicksign/nova-widget/pull/602
     const ghUrl = options.attachments.find((attachment) => attachment.url.match(/github.com/u));
+    console.log('ghUrl', ghUrl);
 
     if (!ghUrl) return [];
 
