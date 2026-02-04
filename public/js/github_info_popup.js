@@ -159,6 +159,7 @@ t.render(() => {
         'fabiodallazen',
         'tofoli',
         'vitorbribas'
+        'brunozanette-clk',
       ].map(name => ({ name }) )
 
       mountSelectOptions(frontendUsers, '#js_users_filter', 'name', 'name');
