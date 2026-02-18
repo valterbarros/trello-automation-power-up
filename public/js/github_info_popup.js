@@ -79,7 +79,7 @@ t.render(() => {
       console.log(err);
     })
 
-    const reposUrl = `https://api.github.com/user/repos?sort=pushed&per_page=20`
+    const reposUrl = `https://api.github.com/user/repos?sort=pushed&per_page=30`
 
     return fetch(reposUrl, {
       headers: {
