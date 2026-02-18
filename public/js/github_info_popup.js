@@ -151,16 +151,15 @@ t.render(() => {
         'vtdog',
         'laerciodev',
         'elianbatista',
-        'rarysson-clk'
+        'rarysson-clk',
         'dependabot[bot]',
         'fernanda-esteves',
       ].map(name => ({ name }) )
 
       const backendUsers = [
         'lsantosc',
-        'fabiodallazen',
         'tofoli',
-        'vitorbribas'
+        'vitorbribas',
         'brunozanette-clk',
       ].map(name => ({ name }) )
 
