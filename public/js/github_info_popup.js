@@ -158,6 +158,7 @@ t.render(() => {
 
       const backendUsers = [
         'lsantosc',
+        'danilojosino',
         'tofoli',
         'vitorbribas',
         'brunozanette-clk',
