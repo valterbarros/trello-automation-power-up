@@ -4,6 +4,8 @@ Status:
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f7a71126-295c-440e-8254-45e860709557/deploy-status)](https://app.netlify.com/projects/trello-automation-power-up/deploys)
 
+File to update users from popup: https://github.com/valterbarros/trello-automation-power-up/blob/4e1a589ed58831329828be139b22d3a2e6cb561d/public/js/github_info_popup.js#L141
+
 ### Instructions
 
 You need to serve that app to use on your trello boards, for that there is a node script server.js on the project root you could run that using:
