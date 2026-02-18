@@ -1,5 +1,9 @@
 # Trello Automation Power-Up 🚀
 
+Status:
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f7a71126-295c-440e-8254-45e860709557/deploy-status)](https://app.netlify.com/projects/trello-automation-power-up/deploys)
+
 ### Instructions
 
 You need to serve that app to use on your trello boards, for that there is a node script server.js on the project root you could run that using:
