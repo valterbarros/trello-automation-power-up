@@ -142,14 +142,16 @@ t.render(() => {
         'valterbarros',
         'franciscoemanuel',
         'erick-ishimine',
-        'antnathan',
+        'nathansouza-clk',
         'victordantasmcz',
-        'eaebob',
+        'carlosmarques-clk',
+        'franciscoemanuel-clk',
+        'giovanibl-clk'
         'Hai-San',
         'vtdog',
         'laerciodev',
         'elianbatista',
-        'giovanibl',
+        'rarysson-clk'
         'dependabot[bot]',
         'fernanda-esteves',
       ].map(name => ({ name }) )
