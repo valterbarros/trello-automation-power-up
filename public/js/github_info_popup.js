@@ -146,7 +146,7 @@ t.render(() => {
         'victordantasmcz',
         'carlosmarques-clk',
         'franciscoemanuel-clk',
-        'giovanibl-clk'
+        'giovanibl-clk',
         'Hai-San',
         'vtdog',
         'laerciodev',
