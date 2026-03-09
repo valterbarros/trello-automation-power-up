@@ -152,6 +152,7 @@ t.render(() => {
         'rarysson-clk',
         'dependabot[bot]',
         'fernanda-esteves',
+        'bob-clk',
       ].map(name => ({ name }) )
 
       const backendUsers = [
