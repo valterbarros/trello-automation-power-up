@@ -13,7 +13,8 @@
   <script src="https://trello.com/1/client.js?key=4a4f3be9aaba4f56cfa5e357258f1c2e"></script>
 </head>
 <body>
-  <textarea id="js-textarea"></textarea>  
+  <textarea id="js-textarea"></textarea>
+  <button id="js-copy">Copy</button>
 
   <script>
     var t = TrelloPowerUp.iframe()
@@ -38,9 +39,14 @@
 
     csv = [head, ...csv];
 
-    document.querySelector('#js-textarea').value = csv.join('\n')
+    const parsed = csv.join('\n');
 
-    navigator.clipboard.writeText(csv.join('\n'))
+    document.querySelector('#js-textarea').value = parsed
+    document.querySelector('#js-textarea').select()
+    
+    document.querySelector('#js-copy').addEventListener(() => {
+      navigator.clipboard.writeText(parsed)
+    });
     // TODO: try download file
   </script>
 </body>
