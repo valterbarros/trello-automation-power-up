@@ -14,8 +14,8 @@
 </head>
 <body>
   <textarea id="js-textarea"></textarea>
-  <button id="js-copy">Copy</button>
 
+  <!-- Collect all cards from list and parse to csv to be imported by sheets -->
   <script>
     var t = TrelloPowerUp.iframe()
 
@@ -44,10 +44,11 @@
     document.querySelector('#js-textarea').value = parsed
     document.querySelector('#js-textarea').select()
     
-    document.querySelector('#js-copy').addEventListener('click', () => {
-      navigator.clipboard.writeText(parsed)
-    });
-    // TODO: try download file
+    // Not allowed by iframe
+    // document.querySelector('#js-copy').addEventListener('click', () => {
+      // navigator.clipboard.writeText(parsed)
+      // window.showSaveFilePicker();
+    // });
   </script>
 </body>
 </html>
