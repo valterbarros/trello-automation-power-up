@@ -171,6 +171,7 @@ TrelloPowerUp.initialize({
           callback: function (t) {
             window.parent.postMessage({list, type: 'trello-extension-integration'})
             window.postMessage({list, type: 'trello-extension-integration'})
+            window.postMessage({list, type: 'trello-extension-integration'}, 'https://trello.com')
           }
         }];
       });
