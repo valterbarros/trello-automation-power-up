@@ -169,16 +169,15 @@ TrelloPowerUp.initialize({
         return [{
           text: "Get List Stats",
           callback: function (t) {
-            window.parent.postMessage({list, type: 'trello-extension-integration'})
-            window.postMessage({list, type: 'trello-extension-integration'})
-            // window.postMessage({list, type: 'trello-extension-integration'}, 'https://trello.com')
-            // Try create a sheets with list
-            // Not allowed
-            // navigator.clipboard.writeText("asdsa")
-
             return t.popup({
               title: "List to import",
-              url: "/public/copy-trello-list.html"
+              // url: "/public/copy-trello-list.html"
+              items: [{
+                text: 'Choose Time',
+                callback: function (t, opts) {
+                  console.log("list: ", list)
+                }
+              },
             });
           }
         }];
