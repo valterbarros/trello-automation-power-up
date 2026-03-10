@@ -22,7 +22,7 @@
     console.log('list: ', list)
 
     const cards = list.cards
-    const head = "Nome,Github,Jira,Finalizado em,Trello,Projecto"
+    const head = "Nome,Github,Jira,Finalizado em,Trello,Projeto"
 
     let csv = cards.map((card) => {
       const name = card.name.replace(',', '');
@@ -40,7 +40,8 @@
 
     document.querySelector('#js-textarea').value = csv.join('\n')
 
-    navigator.clipboard.writeText()(csv.join('\n'))
+    navigator.clipboard.writeText(csv.join('\n'))
+    // TODO: try download file
   </script>
 </body>
 </html>
