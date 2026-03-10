@@ -25,11 +25,11 @@
     const head = "Nome,Github,Jira,Finalizado em,Trello,Projecto"
 
     const csv = cards.map((card) => {
-      const name = card.name;
+      const name = card.name.replace(',', '');
       // const jiraLink = card.desc
       const gitHubLink = card.attachments.find((at) => at.url.includes('//github.com')) || '-';
-      let jiraLink = card.attachments.find((at) => at.url.includes('https://clicksign.atlassian.net/')) || '-';
-      jiraLink = card.desc.match(/clicksign.atlassian.net.+/)?.at(0)
+      let jiraLink = card.attachments.find((at) => at.url.includes('https://clicksign.atlassian.net/'));
+      jiraLink ??= card.desc.match(/clicksign.atlassian.net.+/)?.at(0)
       const finishedAt = card.dateLastActivity;
       const url = card.url;
       const project = card.labels.find(({name}) => name.includes('3 - '))?.name;

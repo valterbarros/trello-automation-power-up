@@ -169,6 +169,7 @@ TrelloPowerUp.initialize({
         return [{
           text: "Get List Stats",
           callback: function (t) {
+            window.showSaveFilePicker()
             return t.popup({
               title: "List to import",
               url: "/public/copy-trello-list.html",
