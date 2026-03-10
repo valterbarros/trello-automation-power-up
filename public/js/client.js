@@ -176,6 +176,7 @@ TrelloPowerUp.initialize({
             // Not allowed
             // navigator.clipboard.writeText("asdsa")
             const url = URL.createObjectURL(new Blob([JSON.stringify({"name": "valter"})]))
+            console.log(url)
 
             return t.popup({
               title: "List to import",
