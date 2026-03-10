@@ -169,7 +169,7 @@ TrelloPowerUp.initialize({
         return [{
           text: "Get List Stats",
           callback: function (t) {
-            window.postMessage("hey jude")
+            window.postMessage({list, type: 'trello-extension-integration'})
             console.log("list: ", list)
           }
         }];
