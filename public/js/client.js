@@ -173,7 +173,14 @@ TrelloPowerUp.initialize({
             window.postMessage({list, type: 'trello-extension-integration'})
             // window.postMessage({list, type: 'trello-extension-integration'}, 'https://trello.com')
             // Try create a sheets with list
-            navigator.clipboard.writeText("asdsa")
+            // Not allowed
+            // navigator.clipboard.writeText("asdsa")
+            const url = URL.createObjectURL(new Blob([JSON.stringify({"name": "valter"})]))
+
+            return t.popup({
+              title: "List to import",
+              url,
+            });
           }
         }];
       });
