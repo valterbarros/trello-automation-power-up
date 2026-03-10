@@ -28,8 +28,8 @@
     let csv = cards.map((card) => {
       const name = card.name.replace(',', '');
       const gitHubLink = card.attachments.find((at) => at.url.includes('//github.com'))?.url || '-';
-      let jiraLink = card.attachments.find((at) => at.url.includes('https://clicksign.atlassian.net/'));
-      jiraLink ??= card.desc.match(/clicksign.atlassian.net.+/)?.at(0) || '-'
+      let jiraLink = card.attachments.find((at) => at.url.includes('https://clicksign.atlassian.net/'))?.url
+      jiraLink ??= card.desc.match(/^https:\/\/clicksign.atlassian.net\/browse\/[a-z0-9-]+/i)?.at(0) || '-'
       const finishedAt = card.dateLastActivity;
       const url = card.url;
       const project = card.labels.find(({name}) => name.includes('3 - '))?.name;
