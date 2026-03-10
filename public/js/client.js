@@ -164,7 +164,7 @@ TrelloPowerUp.initialize({
     ];
   },
   'list-actions': function (t) {
-    return t.list('name', 'id')
+    return t.list('name', 'id', 'cards')
       .then(function (list) {
         return [{
           text: "Get List Stats",
@@ -173,12 +173,6 @@ TrelloPowerUp.initialize({
               title: "List to import",
               url: "/public/copy-trello-list.html",
               args: { list },
-              // items: [{
-              //   text: 'Choose Time',
-              //   callback: function (t, opts) {
-              //     console.log("list: ", list)
-              //   }
-              // }],
             });
           }
         }];

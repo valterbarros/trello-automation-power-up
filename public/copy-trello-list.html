@@ -17,11 +17,9 @@
 
   <script>
     var t = TrelloPowerUp.iframe()
-    console.log('list: ', t.arg('list'))
 
-    t.arg('list').then(function(list) {
-      console.log(list)
-    })
+    const list = t.arg('list')
+    console.log(list)
   </script>
 </body>
 </html>
