@@ -19,7 +19,22 @@
     var t = TrelloPowerUp.iframe()
 
     const list = t.arg('list')
-    console.log(list)
+    console.log('list: ', list)
+
+    const cards = list.cards
+
+    const csv = cards.map((card) => {
+      const name = card.name;
+      // const jiraLink = card.desc
+      const links = card.attachments.map((at) => at.url);
+      const finishedAt = card.dateLastActivity;
+      const url = card.url;
+      const project = card.labels.find(({name}) => name.includes('3 - '))?.name;
+
+      return `${name},${links},${finishedAt},${url},${project}`
+    });
+
+    document.querySelector('#js-textarea').value = csv.join('\n')
   </script>
 </body>
 </html>
