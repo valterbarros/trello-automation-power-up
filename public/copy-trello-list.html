@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"
+  ></script>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script src="https://trello.com/1/client.js?key=4a4f3be9aaba4f56cfa5e357258f1c2e"></script>
+  <script>
+    var t = TrelloPowerUp.iframe()
+    t.arg('list').then(function(list) {
+      console.log(list)
+    })
+  </script>
 </head>
 <body>
   <textarea id="js-textarea"></textarea>  

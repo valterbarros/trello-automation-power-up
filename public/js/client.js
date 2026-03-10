@@ -171,13 +171,14 @@ TrelloPowerUp.initialize({
           callback: function (t) {
             return t.popup({
               title: "List to import",
-              // url: "/public/copy-trello-list.html"
-              items: [{
-                text: 'Choose Time',
-                callback: function (t, opts) {
-                  console.log("list: ", list)
-                }
-              }],
+              url: "/public/copy-trello-list.html",
+              args: { list },
+              // items: [{
+              //   text: 'Choose Time',
+              //   callback: function (t, opts) {
+              //     console.log("list: ", list)
+              //   }
+              // }],
             });
           }
         }];
