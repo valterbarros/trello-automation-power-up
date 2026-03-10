@@ -177,7 +177,7 @@ TrelloPowerUp.initialize({
                 callback: function (t, opts) {
                   console.log("list: ", list)
                 }
-              },
+              }],
             });
           }
         }];

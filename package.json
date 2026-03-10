@@ -15,7 +15,7 @@
     "cors": "^2.8.3"
   },
   "engines": {
-    "node": "6.10.x"
+    "node": "20.x"
   },
   "repository": {
     "url": "https://github.com/valterbarros/automatizations-trello-power-up"
@@ -28,6 +28,6 @@
   ],
   "devDependencies": {
     "eslint": "^7.0.0",
-    "parcel": "^2.0.0-alpha.3.2"
+    "parcel": "^2.16.4"
   }
 }
