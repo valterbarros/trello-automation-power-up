@@ -162,5 +162,17 @@ TrelloPowerUp.initialize({
         }
       }
     ];
+  },
+  'list-actions': function (t) {
+    return t.list('name', 'id')
+      .then(function (list) {
+        return [{
+          text: "Get List Stats",
+          callback: function (t) {
+            window.postMessage("hey jude")
+            console.log("list: ", list)
+          }
+        }];
+      });
   }
 });
