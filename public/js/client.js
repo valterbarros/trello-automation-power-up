@@ -17,13 +17,13 @@ TrelloPowerUp.initialize({
     // example: https://api.github.com/repos/clicksign/nova-widget/pulls/602
     // https://github.com/clicksign/nova-widget/pull/602
     const ghUrl = options.attachments.find((attachment) => attachment.url.match(/github.com/u));
-    console.log('ghUrl', ghUrl);
+    // console.log('ghUrl', ghUrl);
 
     if (!ghUrl) return [];
 
     const apiAttachment = ghUrl.url.replace('https://github.com', 'https://api.github.com/repos').replace('pull', 'pulls');
 
-    console.log('apiAttachment', apiAttachment);
+    // console.log('apiAttachment', apiAttachment);
 
     return t.get('board', 'shared', 'github_user_info').then((githubUserInfo) => {
       const githubToken = githubUserInfo.ghToken
