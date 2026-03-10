@@ -44,7 +44,7 @@
     document.querySelector('#js-textarea').value = parsed
     document.querySelector('#js-textarea').select()
     
-    document.querySelector('#js-copy').addEventListener(() => {
+    document.querySelector('#js-copy').addEventListener('click', () => {
       navigator.clipboard.writeText(parsed)
     });
     // TODO: try download file
