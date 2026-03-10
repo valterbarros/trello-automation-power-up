@@ -27,7 +27,7 @@
     const csv = cards.map((card) => {
       const name = card.name.replace(',', '');
       // const jiraLink = card.desc
-      const gitHubLink = card.attachments.find((at) => at.url.includes('//github.com')) || '-';
+      const gitHubLink = card.attachments.find((at) => at.url.includes('//github.com'))?.url || '-';
       let jiraLink = card.attachments.find((at) => at.url.includes('https://clicksign.atlassian.net/'));
       jiraLink ??= card.desc.match(/clicksign.atlassian.net.+/)?.at(0)
       const finishedAt = card.dateLastActivity;
@@ -37,7 +37,9 @@
       return `${name},${gitHubLink},${jiraLink},${finishedAt},${url},${project}`
     });
 
-    document.querySelector('#js-textarea').value = csv.join('\n')
+    navigator.clipbard.writeText(csv.join('\n'))
+
+    // document.querySelector('#js-textarea').value = csv.join('\n')
   </script>
 </body>
 </html>
