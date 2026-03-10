@@ -11,14 +11,17 @@
   ></script>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <script src="https://trello.com/1/client.js?key=4a4f3be9aaba4f56cfa5e357258f1c2e"></script>
+</head>
+<body>
+  <textarea id="js-textarea"></textarea>  
+
   <script>
     var t = TrelloPowerUp.iframe()
+    console.log('list: ', t.arg('list'))
+
     t.arg('list').then(function(list) {
       console.log(list)
     })
   </script>
-</head>
-<body>
-  <textarea id="js-textarea"></textarea>  
 </body>
 </html>
