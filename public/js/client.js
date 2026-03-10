@@ -178,7 +178,7 @@ TrelloPowerUp.initialize({
 
             return t.popup({
               title: "List to import",
-              url: "/public/copy-trello-list.html
+              url: "/public/copy-trello-list.html"
             });
           }
         }];
