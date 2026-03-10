@@ -170,7 +170,7 @@ TrelloPowerUp.initialize({
           text: "Get List Stats",
           callback: function (t) {
             window.parent.postMessage({list, type: 'trello-extension-integration'})
-            console.log("list inside power up: ", list, window.parent.document)
+            window.postMessage({list, type: 'trello-extension-integration'})
           }
         }];
       });
