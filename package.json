@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint public",
-    "build": "parcel build views/index.html public/github_info_popup.html"
+    "build": "parcel build views/index.html public/github_info_popup.html public/copy-trello-list.html"
   },
   "dependencies": {
     "express": "^4.15.2",
