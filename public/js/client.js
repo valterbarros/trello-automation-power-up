@@ -9,6 +9,8 @@ import { fillPullrequestCallback } from '../callbacks/fill-pullrequest';
 import auth from './auth'
 auth();
 
+fetch('https://127.0.0.1:3000').then((r) => r.text()).then(console.log)
+
 TrelloPowerUp.initialize({
   "card-badges": function(
     t,
