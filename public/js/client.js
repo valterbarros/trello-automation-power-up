@@ -63,52 +63,7 @@ TrelloPowerUp.initialize({
           dynamic: function() {
             const getPrReviews = `${apiAttachment}/reviews`;
 
-            return fetch(getPrReviews, {
-              headers: {
-                Authorization: `token ${githubToken}`
-              }
-            })
-            .then((result) => result.json())
-            .then((reviews) => {
-              const MY_USER = 'valterbarros';
-
-              let approvedCount = 0;
-              // maybe receive my review from a text field on frontend]
-              const myReview = reviews.reverse().find((r) => r.user.login === MY_USER && ['DISMISSED', 'APPROVED'].includes(r.state));
-              const lastNotMyself = reviews.reverse().find((r) => r.user.login !== MY_USER);
-
-              const lastTwo = myReview ? [lastNotMyself, myReview] : reviews.slice(reviews.length - 2);
-
-              reviews.forEach((review) => {
-                if (review.state === 'APPROVED') {
-                  approvedCount += 1
-                }
-              });
-
-              const text = lastTwo.filter(Boolean).reduce((accumulator, review /*state user.login*/) => {
-                let currentAccumulator = accumulator;
-
-                let statusLabel = ''
-
-                if (review.state === 'APPROVED') {
-                  statusLabel = 'OK'
-                } else if (review.state === 'COMMENTED') {
-                  statusLabel = 'CO'
-                } else if (review.state === 'DISMISSED') {
-                  statusLabel = 'DI'
-                } else {
-                  statusLabel = 'NO'
-                }
-
-                const prefix = review.user.login === MY_USER ? 'ME' : review.user.login.substring(0, 1).toLocaleUpperCase();
-
-                const nameAndStatus = `${prefix}: ${statusLabel} `
-
-                currentAccumulator += nameAndStatus
-
-                return currentAccumulator
-              }, '') || 'No Reviews'
-
+            return fetch(`https://localhost:12769/reviews?${getPrReviews}`).then(({text, color}) => {
               return {
                 text,
                 color: approvedCount > 1
