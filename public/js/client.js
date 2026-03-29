@@ -63,7 +63,7 @@ TrelloPowerUp.initialize({
           dynamic: function() {
             const getPrReviews = `${apiAttachment}/reviews`;
 
-            return fetch(`https://localhost:12769/reviews?${getPrReviews}`).then(({text, color}) => {
+            return fetch(`https://localhost:12769/reviews?url=${getPrReviews}`).then(({text, color}) => {
               return {
                 text,
                 color: approvedCount > 1
