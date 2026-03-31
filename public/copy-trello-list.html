@@ -23,7 +23,7 @@
     console.log('list: ', list)
 
     const cards = list.cards
-    const head = "Nome,Github,Jira,Finalizado em,Trello,Projeto"
+    // const head = "Nome,Github,Jira,Finalizado em,Trello,Projeto"
 
     let csv = cards.map((card) => {
       const name = card.name.replace(',', '');
@@ -37,7 +37,7 @@
       return `${name},${gitHubLink},${jiraLink},${finishedAt},${url},${project}`
     });
 
-    csv = [head, ...csv];
+    // csv = [head, ...csv];
 
     const parsed = csv.join('\n');
 
