@@ -11,7 +11,7 @@ export async function fillPullrequestCallback(t) {
 
   const repos = githubUserInfo.pullRequestRepoUrls.reduce((acc, curr) => {
     return `${acc},${curr.match(/repos\/([^\/]+\/[^\/]+)/).at(1)}`;
-  }, '');
+  }, '').substring(1)
 
   console.log(repos, boardId, usersFilter, listBoardId)
 
