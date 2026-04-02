@@ -10,7 +10,7 @@ export async function fillPullrequestCallback(t) {
   const { id: boardId } = await t.board('id');
 
   const repos = githubUserInfo.pullRequestRepoUrls.reduce((acc, curr) => {
-    return acc + curr.match(/repos\/([^\/]+\/[^\/]+)/).at(1);
+    return `${acc} ${curr.match(/repos\/([^\/]+\/[^\/]+)/).at(1)},`;
   }, '');
 
   console.log(repos, boardId, usersFilter, listBoardId)
