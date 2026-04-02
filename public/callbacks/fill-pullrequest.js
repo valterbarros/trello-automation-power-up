@@ -1,4 +1,4 @@
-export const fillPullrequestCallback = function(t) {
+export async function fillPullrequestCallback(t) {
   let listBoardId = ''
   let usersFilter = [];
 
