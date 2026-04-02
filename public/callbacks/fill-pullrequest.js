@@ -20,5 +20,5 @@ export async function fillPullrequestCallback(t) {
   search.set('board_id', boardId)
   search.set('list_id', listBoardId)
   search.set('repos', repos)
-  fetch(`https://localhost:12769/sync_cards?${search}`)
+  fetch(`https://localhost:12769/sync_cards?${search}`, {method: 'POST'})
 }
