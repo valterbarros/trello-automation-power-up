@@ -2,7 +2,7 @@ export const fillPullrequestCallback = function(t) {
   let listBoardId = ''
   let usersFilter = [];
 
-  const githubUserInfo = async t.get('board', 'shared', 'github_user_info')
+  const githubUserInfo = await t.get('board', 'shared', 'github_user_info')
   const githubToken = githubUserInfo.ghToken
   listBoardId = githubUserInfo.listBoardId
   usersFilter = githubUserInfo.usersFilter
@@ -10,7 +10,7 @@ export const fillPullrequestCallback = function(t) {
   const { id: boardId } = await t.board('id');
 
   const repos = githubUserInfo.pullRequestRepoUrls.reduce((acc, curr) => {
-    acc = acc + curr.match(/repos\/([a-z]\/a-z)\/pulls/)?.at(1);
+    return acc + curr.match(/repos\/([a-z]\/a-z)\/pulls/)?.at(1);
   }, '');
 
   console.log(repos, boardId, usersFilter, listBoardId)
