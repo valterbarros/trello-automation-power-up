@@ -148,7 +148,7 @@ t.render(() => {
         'Hai-San',
         'viniciustorrubia-clk',
         'laerciodev',
-        'elianbatista',
+        'elianbatistaclk',
         'rarysson-clk',
         'dependabot[bot]',
         'fernanda-esteves',
